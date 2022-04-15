@@ -18,16 +18,20 @@ const Service = ({ setShowModal, setcount, count }) => {
       <Center>
         {count === 1 ? (
           <View style={styles.sec}>
-            <Text style={styles.detail}>Receipt Number</Text>
-            <View style={styles.flex}>
-              <TextInput style={styles.input} />
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => setcount(2)}
-              >
-                <Text style={styles.submit}>Next</Text>
-              </TouchableOpacity>
-            </View>
+            <Center>
+              <View style={{ width: "70%" }}>
+                <Text style={styles.detail}>Receipt Number</Text>
+              </View>
+              <View style={styles.flex}>
+                <TextInput style={styles.input} />
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => setcount(2)}
+                >
+                  <Text style={styles.submit}>Next</Text>
+                </TouchableOpacity>
+              </View>
+            </Center>
           </View>
         ) : count === 2 ? (
           <View style={styles.sec1}>
@@ -76,54 +80,58 @@ const Service = ({ setShowModal, setcount, count }) => {
           </View>
         ) : (
           <View style={styles.sec2}>
-            <Text style={styles.detail1}>
-              Please rate us on the following parameters
-            </Text>
-            <Text style={styles.detail1}>Staff interaction quality</Text>
-            <View style={{ flexDirection: "row", marginBottom: 20 }}>
-              {emo.map((itm, index) => (
-                <Ionicons
-                  key={index}
-                  name="happy"
-                  size={40}
-                  color="gray"
-                  style={styles.col}
-                />
-              ))}
-            </View>
-            <Text style={styles.detail1}>On-time delivery</Text>
-            <View style={{ flexDirection: "row", marginBottom: 20 }}>
-              {emo.map((itm, index) => (
-                <Ionicons
-                  key={index}
-                  name="happy"
-                  size={40}
-                  color="gray"
-                  style={styles.col}
-                />
-              ))}
-            </View>
-            <Text style={styles.detail1}>Quality of repair job</Text>
-            <View style={{ flexDirection: "row", marginBottom: 20 }}>
-              {emo.map((itm, index) => (
-                <Ionicons
-                  key={index}
-                  name="happy"
-                  size={40}
-                  color="gray"
-                  style={styles.col}
-                />
-              ))}
-            </View>
-            <View style={styles.flex1}>
-              <View></View>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => setShowModal(true)}
-              >
-                <Text style={styles.submit}>Next</Text>
-              </TouchableOpacity>
-            </View>
+            <Center>
+              <View>
+                <Text style={styles.detail1}>
+                  Please rate us on the following parameters
+                </Text>
+                <Text style={styles.detail1}>Staff interaction quality</Text>
+                <View style={{ flexDirection: "row", marginBottom: 20 }}>
+                  {emo.map((itm, index) => (
+                    <Ionicons
+                      key={index}
+                      name="happy"
+                      size={40}
+                      color="gray"
+                      style={styles.col}
+                    />
+                  ))}
+                </View>
+                <Text style={styles.detail1}>On-time delivery</Text>
+                <View style={{ flexDirection: "row", marginBottom: 20 }}>
+                  {emo.map((itm, index) => (
+                    <Ionicons
+                      key={index}
+                      name="happy"
+                      size={40}
+                      color="gray"
+                      style={styles.col}
+                    />
+                  ))}
+                </View>
+                <Text style={styles.detail1}>Quality of repair job</Text>
+                <View style={{ flexDirection: "row", marginBottom: 20 }}>
+                  {emo.map((itm, index) => (
+                    <Ionicons
+                      key={index}
+                      name="happy"
+                      size={40}
+                      color="gray"
+                      style={styles.col}
+                    />
+                  ))}
+                </View>
+                <View style={styles.flex1}>
+                  <View></View>
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => setShowModal(true)}
+                  >
+                    <Text style={styles.submit}>Next</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Center>
           </View>
         )}
       </Center>

@@ -12,20 +12,20 @@ import Ban2 from "../../assets/6.png";
 import Ban3 from "../../assets/7.png";
 import Ban4 from "../../assets/9.png";
 import Ban5 from "../../assets/10.png";
-import one from "../../assets/img/1.gif";
-import two from "../../assets/img/2.gif";
-import three from "../../assets/img/3.gif";
-import four from "../../assets/img/4.gif";
-import five from "../../assets/img/5.gif";
-import six from "../../assets/img/6.gif";
-import seven from "../../assets/img/7.gif";
-import eight from "../../assets/img/8.gif";
-import nine from "../../assets/img/9.gif";
-import ten from "../../assets/img/10.gif";
-import eleven from "../../assets/img/11.gif";
-import twell from "../../assets/img/12.gif";
-import thertin from "../../assets/img/13.gif";
-import fourtin from "../../assets/img/14.gif";
+import one from "../../assets/img/1.png";
+import two from "../../assets/img/2.png";
+import three from "../../assets/img/3.png";
+import four from "../../assets/img/4.png";
+import five from "../../assets/img/5.png";
+import six from "../../assets/img/6.png";
+import seven from "../../assets/img/7.png";
+import eight from "../../assets/img/8.png";
+import nine from "../../assets/img/9.png";
+import ten from "../../assets/img/10.png";
+import eleven from "../../assets/img/11.png";
+import twell from "../../assets/img/12.png";
+import thertin from "../../assets/img/13.png";
+import fourtin from "../../assets/img/14.png";
 import fiftin from "../../assets/img/15.png";
 import { Center, NativeBaseProvider, Radio, Modal } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
@@ -58,6 +58,7 @@ const Tabs = () => {
   const [showModal, setShowModal] = useState(false);
   const [nonpur, setnonpur] = useState("1");
   const [count, setcount] = useState(1);
+  const [imgVal, setimgVal] = useState(0);
   return (
     <View>
       <View style={styles.ban}>
@@ -117,23 +118,35 @@ const Tabs = () => {
                   <Text style={styles.select}>Select Your Brand</Text>
                   <View style={styles.row}>
                     {imgs.slice(0, 5).map((itm, index) => (
-                      <View key={index} style={styles.imgw}>
+                      <TouchableOpacity
+                        key={index}
+                        style={itm.num === imgVal ? styles.imgw1 : styles.imgw}
+                        onPress={() => setimgVal(itm.num)}
+                      >
                         <Image source={itm.val} style={styles.img1} />
-                      </View>
+                      </TouchableOpacity>
                     ))}
                   </View>
                   <View style={styles.row}>
                     {imgs.slice(5, 10).map((itm, index) => (
-                      <View key={index} style={styles.imgw}>
+                      <TouchableOpacity
+                        key={index}
+                        onPress={() => setimgVal(itm.num)}
+                        style={itm.num === imgVal ? styles.imgw1 : styles.imgw}
+                      >
                         <Image source={itm.val} style={styles.img1} />
-                      </View>
+                      </TouchableOpacity>
                     ))}
                   </View>
                   <View style={styles.row}>
                     {imgs.slice(10, 15).map((itm, index) => (
-                      <View key={index} style={styles.imgw}>
+                      <TouchableOpacity
+                        key={index}
+                        onPress={() => setimgVal(itm.num)}
+                        style={itm.num === imgVal ? styles.imgw1 : styles.imgw}
+                      >
                         <Image source={itm.val} style={styles.img1} />
-                      </View>
+                      </TouchableOpacity>
                     ))}
                   </View>
                   <Text style={styles.exp}>Rate Your Experience</Text>
@@ -184,8 +197,8 @@ const Tabs = () => {
           ) : val === 2 ? (
             <NativeBaseProvider>
               <Center>
-                <View style={styles.all}>
-                  <Text style={styles.select}>
+                <View style={styles.all1}>
+                  <Text style={styles.select1}>
                     What is the key reason for giving us four stars ?
                   </Text>
                   <Center>
@@ -225,7 +238,7 @@ const Tabs = () => {
                       </View>
                     </Radio.Group>
                   </Center>
-                  <Text style={styles.exp}>
+                  <Text style={styles.exp1}>
                     How likely are you to recommend our store to your friends
                     and family ?
                   </Text>
@@ -264,7 +277,7 @@ const Tabs = () => {
                       style={styles.button}
                       onPress={() => setval(3)}
                     >
-                      <Text style={styles.submit}>Submit</Text>
+                      <Text style={styles.submit}>Next</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -273,8 +286,8 @@ const Tabs = () => {
           ) : (
             <NativeBaseProvider>
               <Center>
-                <View style={styles.all}>
-                  <Text style={styles.select}>
+                <View style={styles.all1}>
+                  <Text style={styles.select1}>
                     Please rate us on the following parameters
                   </Text>
                   <Center>
@@ -307,7 +320,7 @@ const Tabs = () => {
                       </View>
                     </Radio.Group>
                   </Center>
-                  <Text style={styles.exp}>
+                  <Text style={styles.exp1}>
                     How likely are you to recommend our store to your friends
                     and family ?
                   </Text>
@@ -402,6 +415,10 @@ const styles = StyleSheet.create({
     width: "94%",
     marginTop: 40,
   },
+  all1: {
+    width: "80%",
+    marginTop: 40,
+  },
   ban: {
     width: "100%",
     height: "40%",
@@ -440,6 +457,12 @@ const styles = StyleSheet.create({
   imgw: {
     borderColor: "gray",
     borderWidth: 1,
+    backgroundColor: "white",
+  },
+  imgw1: {
+    borderColor: "gray",
+    borderWidth: 1,
+    backgroundColor: "#00c8cb",
   },
   img1: {
     width: 167,
@@ -451,9 +474,20 @@ const styles = StyleSheet.create({
     fontSize: 23,
     color: "black",
     paddingBottom: 20,
-    textAlign: "center",
   },
   exp: {
+    fontSize: 23,
+    color: "black",
+    paddingBottom: 20,
+    marginTop: 20,
+  },
+  select1: {
+    fontSize: 23,
+    color: "black",
+    paddingBottom: 20,
+    textAlign: "center",
+  },
+  exp1: {
     fontSize: 23,
     color: "black",
     paddingBottom: 20,

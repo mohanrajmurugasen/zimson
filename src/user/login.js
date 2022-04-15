@@ -27,7 +27,7 @@ const Login = ({ navigation }) => {
               />
               <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate("about")}
+                onPress={() => navigation.navigate("store")}
               >
                 <Text style={styles.submit}>Submit</Text>
               </TouchableOpacity>
