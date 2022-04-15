@@ -6,11 +6,30 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Ban from "../../assets/zimson1.png";
-import { Center, NativeBaseProvider } from "native-base";
+import {
+  Center,
+  NativeBaseProvider,
+  Select,
+  Box,
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from "native-base";
+import authaxios from "../../interceptors/authaxios";
 
 const Login = ({ navigation }) => {
+  let [service, setService] = useState("");
+  let [value, setvalue] = useState("");
+
+  const submit = async () => {
+    navigation.navigate("store");
+    // await authaxios.post('').then(res => {
+    //   console.log(res.data)
+    // }).catch(err => console.error(err.message))
+  };
+
   return (
     <View>
       <View style={styles.ban}>
@@ -24,11 +43,10 @@ const Login = ({ navigation }) => {
               <TextInput
                 style={styles.input}
                 placeholder="Email or Mobile Number"
+                value={value}
+                onChangeText={(txt) => setvalue(txt)}
               />
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate("store")}
-              >
+              <TouchableOpacity style={styles.button} onPress={submit}>
                 <Text style={styles.submit}>Submit</Text>
               </TouchableOpacity>
             </View>
@@ -36,6 +54,49 @@ const Login = ({ navigation }) => {
         </NativeBaseProvider>
       </View>
       <View style={styles.foot}>
+        <View style={{ width: 330 }}>
+          <NativeBaseProvider>
+            <Box w="3/4" maxW="300" style={{ marginTop: 19 }}>
+              <Select
+                selectedValue={service}
+                minWidth="200"
+                accessibilityLabel="Choose Location"
+                placeholder="Choose Location"
+                _selectedItem={{
+                  bg: "teal.600",
+                  endIcon: <CheckIcon size="5" />,
+                }}
+                style={{
+                  backgroundColor: "white",
+                  color: "black",
+                  height: 43,
+                  fontSize: 18,
+                  paddingLeft: 15,
+                  marginBottom: 0,
+                }}
+                dropdownOpenIcon={
+                  <View style={styles.pads}>
+                    <ChevronUpIcon size="5" style={styles.boxIcon} />
+                  </View>
+                }
+                dropdownCloseIcon={
+                  <View style={styles.pads}>
+                    <ChevronDownIcon size="5" style={styles.boxIcon} />
+                  </View>
+                }
+                mt={1}
+                onValueChange={(itemValue) => setService(itemValue)}
+              >
+                <Select.Item label="Coimbatore" value="Coimbatore" />
+                <Select.Item label="Chennai" value="Chennai" />
+                <Select.Item label="Bengaluru" value="Bengaluru" />
+                <Select.Item label="Mysuru" value="Mysuru" />
+                <Select.Item label="Salem" value="Salem" />
+                <Select.Item label="Madurai" value="Madurai" />
+              </Select>
+            </Box>
+          </NativeBaseProvider>
+        </View>
         <Text style={styles.zimson}>Zimson since 1948</Text>
       </View>
     </View>
@@ -58,6 +119,8 @@ const styles = StyleSheet.create({
   foot: {
     height: "8%",
     backgroundColor: "#e84a49",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
   detail: {
     fontSize: 25,
@@ -89,6 +152,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     marginTop: 35,
+  },
+  boxIcon: {
+    height: 43,
+    color: "#c7c2c2",
+    width: 20,
+  },
+  pads: {
+    paddingHorizontal: 10,
+    backgroundColor: "white",
   },
 });
 

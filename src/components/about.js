@@ -10,9 +10,18 @@ import {
 import React, { useState } from "react";
 import Ban from "../../assets/3.png";
 import { Center, NativeBaseProvider, Radio } from "native-base";
+import authaxios from "../../interceptors/authaxios";
 
 const About = ({ navigation }) => {
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState("digital media");
+  const [other, setother] = useState("");
+
+  const submit = async () => {
+    navigation.navigate("tabs");
+    // await authaxios.post('').then(res => {
+    //   console.log(res.data)
+    // }).catch(err => console.error(err.message))
+  };
   return (
     <View>
       <View style={styles.ban}>
@@ -32,35 +41,39 @@ const About = ({ navigation }) => {
                 }}
               >
                 <View style={styles.digi}>
-                  <Radio value="1" size="lg" my={1}>
+                  <Radio value="digital media" size="lg" my={1}>
                     <Text style={styles.radioText}>Digital Media</Text>
                   </Radio>
                 </View>
                 <View style={styles.digi}>
-                  <Radio value="2" size="lg" my={1}>
+                  <Radio value="print media" size="lg" my={1}>
                     <Text style={styles.radioText}>Print Media</Text>
                   </Radio>
                 </View>
                 <View style={styles.digi}>
-                  <Radio value="3" size="lg" my={1}>
+                  <Radio value="social media" size="lg" my={1}>
                     <Text style={styles.radioText}>Social Media</Text>
                   </Radio>
                 </View>
                 <View style={styles.digi}>
-                  <Radio value="4" size="lg" my={1}>
+                  <Radio value="radio ad" size="lg" my={1}>
                     <Text style={styles.radioText}>Radio Ad</Text>
                   </Radio>
                 </View>
                 <View style={styles.digi}>
-                  <Radio value="5" size="lg" my={1}>
+                  <Radio value="family or friends" size="lg" my={1}>
                     <Text style={styles.radioText}>Family (or) Friends</Text>
                   </Radio>
                 </View>
                 <View style={styles.digi}>
-                  <Radio value="6" size="lg" my={1}>
+                  <Radio value="other" size="lg" my={1}>
                     <View style={styles.other}>
                       <Text style={styles.radioText}>Others</Text>
-                      <TextInput style={styles.otherInput} />
+                      <TextInput
+                        style={styles.otherInput}
+                        value={other}
+                        onChangeText={(txt) => setother(txt)}
+                      />
                     </View>
                   </Radio>
                 </View>
@@ -70,13 +83,10 @@ const About = ({ navigation }) => {
         </ScrollView>
       </View>
       <View style={styles.foot}>
-        <TouchableOpacity style={styles.bot}>
+        <TouchableOpacity style={styles.bot} onPress={() => navigation.pop()}>
           <Text style={styles.zimson}>Back</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.bot2}
-          onPress={() => navigation.navigate("tabs")}
-        >
+        <TouchableOpacity style={styles.bot2} onPress={submit}>
           <Text style={styles.zimson}>Next</Text>
         </TouchableOpacity>
       </View>

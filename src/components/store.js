@@ -8,11 +8,69 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import Ban from "../../assets/2.png";
-import { Center, NativeBaseProvider, Radio, Stack } from "native-base";
+import { Center, NativeBaseProvider, Radio } from "native-base";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
+import authaxios from "../../interceptors/authaxios";
 
 const Store = ({ navigation }) => {
   const [value, setValue] = useState("M");
   const [value1, setValue1] = useState("1");
+  const [name, setname] = useState("");
+  const [phone, setphone] = useState("");
+  const [email, setemail] = useState("");
+  const [dummy, setdummy] = useState(false);
+  const [dummy1, setdummy1] = useState(false);
+
+  const [date, setDate] = useState(new Date());
+  const [date1, setDate1] = useState(new Date());
+  const [mode, setMode] = useState("date");
+  const [mode1, setMode1] = useState("date");
+  const [show, setShow] = useState(false);
+  const [show1, setShow1] = useState(false);
+
+  const bday = moment(new Date(date)).format("DD/MM/YYYY");
+  const ani = moment(new Date(date1)).format("DD/MM/YYYY");
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setShow(false);
+    setDate(currentDate);
+    setdummy(true);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode("date");
+  };
+
+  const onChange1 = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setShow1(false);
+    setDate1(currentDate);
+    setdummy1(true);
+  };
+
+  const showMode1 = (currentMode) => {
+    setShow1(true);
+    setMode1(currentMode);
+  };
+
+  const showDatepicker1 = () => {
+    showMode1("date");
+  };
+
+  const submit = async () => {
+    navigation.navigate("about");
+    // await authaxios.post('').then(res => {
+    //   console.log(res.data)
+    // }).catch(err => console.error(err.message))
+  };
+
   return (
     <NativeBaseProvider>
       <View style={{ backgroundColor: "white" }}>
@@ -25,9 +83,24 @@ const Store = ({ navigation }) => {
               Please Enter the Below Information To Continue
             </Text>
             <View style={{ width: "60%" }}>
-              <TextInput style={styles.input} placeholder="Name" />
-              <TextInput style={styles.input} placeholder="Phone Number" />
-              <TextInput style={styles.input} placeholder="Email Id" />
+              <TextInput
+                style={styles.input}
+                placeholder="Name"
+                value={name}
+                onChangeText={(txt) => setname(txt)}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="Phone Number"
+                value={phone}
+                onChangeText={(txt) => setphone(txt)}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="Email Id"
+                value={email}
+                onChangeText={(txt) => setemail(txt)}
+              />
             </View>
             <View style={styles.hole}>
               <Radio.Group
@@ -95,18 +168,49 @@ const Store = ({ navigation }) => {
               </Radio.Group>
             </View>
             <View style={{ flexDirection: "row", width: "60%" }}>
-              <TextInput style={styles.input2} placeholder="Birthday" />
-              <TextInput style={styles.input2} placeholder="Anniversary" />
               <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate("about")}
+                style={styles.input2}
+                placeholder="Birthday"
+                onPress={showDatepicker}
               >
+                <Text style={styles.birth}>
+                  {dummy ? bday.toString() : "Birthday"}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.input2}
+                placeholder="Birthday"
+                onPress={showDatepicker1}
+              >
+                <Text style={styles.birth}>
+                  {dummy1 ? ani.toString() : "Anniversary"}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={submit}>
                 <Text style={styles.submit}>Submit</Text>
               </TouchableOpacity>
             </View>
           </Center>
         </View>
       </View>
+      {show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={mode}
+          is24Hour={true}
+          onChange={onChange}
+        />
+      )}
+      {show1 && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date1}
+          mode={mode1}
+          is24Hour={true}
+          onChange={onChange1}
+        />
+      )}
     </NativeBaseProvider>
   );
 };
@@ -146,6 +250,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingBottom: 10,
     marginBottom: 30,
+  },
+  birth: {
+    fontSize: 20,
+    color: "gray",
   },
   hole: {
     flexDirection: "row",
