@@ -18,13 +18,15 @@ import {
   ChevronUpIcon,
 } from "native-base";
 import authaxios from "../../interceptors/authaxios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { dataProduct } from "../../redux/action/action";
 
 const Login = ({ navigation }) => {
   let [service, setService] = useState("");
   let [value, setvalue] = useState("");
   let [location, setlocation] = useState([]);
   const dispatch = useDispatch();
+  // const dem = useSelector((state) => state.addData.data);
 
   useEffect(() => {
     authaxios
@@ -36,6 +38,18 @@ const Login = ({ navigation }) => {
   }, []);
 
   const submit = async () => {
+    dispatch(
+      dataProduct({
+        type: "user",
+        val: value,
+      })
+    );
+    dispatch(
+      dataProduct({
+        type: "location",
+        val: service,
+      })
+    );
     navigation.navigate("store");
   };
 

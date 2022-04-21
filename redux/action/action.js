@@ -6,3 +6,10 @@ export const treatmentProduct = (treatment) => {
     payload: treatment,
   };
 };
+
+export const dataProduct = (data) => {
+  return {
+    type: ActionType.DATA,
+    payload: data,
+  };
+};

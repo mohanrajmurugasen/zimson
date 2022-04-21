@@ -7,12 +7,33 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { Center, NativeBaseProvider, Radio } from "native-base";
-import { Ionicons } from "@expo/vector-icons";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { MaterialIcons, Entypo } from "@expo/vector-icons";
 
 const Service = ({ setShowModal, setcount, count }) => {
   const [value1, setValue1] = useState("1");
   const fam = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const emo = [0, 1, 2, 3, 4];
+  const emo = [
+    "emoji-flirt",
+    "emoji-happy",
+    "emoji-neutral",
+    "emoji-sad",
+    "insert-emoticon",
+  ];
+  const emo1 = [
+    "emoji-flirt",
+    "emoji-happy",
+    "emoji-neutral",
+    "emoji-sad",
+    "insert-emoticon",
+  ];
+  const emo2 = [
+    "emoji-flirt",
+    "emoji-happy",
+    "emoji-neutral",
+    "emoji-sad",
+    "insert-emoticon",
+  ];
   return (
     <NativeBaseProvider>
       <Center>
@@ -87,39 +108,69 @@ const Service = ({ setShowModal, setcount, count }) => {
                 </Text>
                 <Text style={styles.detail1}>Staff interaction quality</Text>
                 <View style={{ flexDirection: "row", marginBottom: 20 }}>
-                  {emo.map((itm, index) => (
-                    <Ionicons
-                      key={index}
-                      name="happy"
-                      size={40}
-                      color="gray"
-                      style={styles.col}
-                    />
-                  ))}
+                  {emo.map((itm, index) =>
+                    itm === "insert-emoticon" ? (
+                      <MaterialIcons
+                        name={itm}
+                        style={styles.col}
+                        color="gray"
+                        key={index}
+                        size={40}
+                      />
+                    ) : (
+                      <Entypo
+                        name={itm}
+                        style={styles.col}
+                        color="gray"
+                        key={index}
+                        size={40}
+                      />
+                    )
+                  )}
                 </View>
                 <Text style={styles.detail1}>On-time delivery</Text>
                 <View style={{ flexDirection: "row", marginBottom: 20 }}>
-                  {emo.map((itm, index) => (
-                    <Ionicons
-                      key={index}
-                      name="happy"
-                      size={40}
-                      color="gray"
-                      style={styles.col}
-                    />
-                  ))}
+                  {emo1.map((itm, index) =>
+                    itm === "insert-emoticon" ? (
+                      <MaterialIcons
+                        name={itm}
+                        style={styles.col}
+                        color="gray"
+                        key={index}
+                        size={40}
+                      />
+                    ) : (
+                      <Entypo
+                        name={itm}
+                        style={styles.col}
+                        color="gray"
+                        key={index}
+                        size={40}
+                      />
+                    )
+                  )}
                 </View>
                 <Text style={styles.detail1}>Quality of repair job</Text>
                 <View style={{ flexDirection: "row", marginBottom: 20 }}>
-                  {emo.map((itm, index) => (
-                    <Ionicons
-                      key={index}
-                      name="happy"
-                      size={40}
-                      color="gray"
-                      style={styles.col}
-                    />
-                  ))}
+                  {emo2.map((itm, index) =>
+                    itm === "insert-emoticon" ? (
+                      <MaterialIcons
+                        name={itm}
+                        style={styles.col}
+                        color="gray"
+                        key={index}
+                        size={40}
+                      />
+                    ) : (
+                      <Entypo
+                        name={itm}
+                        style={styles.col}
+                        color="gray"
+                        key={index}
+                        size={40}
+                      />
+                    )
+                  )}
                 </View>
                 <View style={styles.flex1}>
                   <View></View>
