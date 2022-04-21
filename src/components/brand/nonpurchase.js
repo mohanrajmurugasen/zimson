@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Radio, NativeBaseProvider, Center } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import PropTypes from "prop-types";
@@ -21,6 +21,14 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
     "5L - 10L",
     "10L - 15L",
   ];
+
+  const [star, setstar] = useState({
+    one: true,
+    two: false,
+    three: false,
+    four: false,
+    five: false,
+  });
   return (
     <NativeBaseProvider>
       <Center>
@@ -60,11 +68,86 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
           <TextInput style={styles.ins} />
           <Text style={styles.five}>Rate Your Experience</Text>
           <View style={styles.star}>
-            <Ionicons name="star" size={32} color="black" style={styles.col} />
-            <Ionicons name="star" size={32} color="black" style={styles.col} />
-            <Ionicons name="star" size={32} color="black" style={styles.col} />
-            <Ionicons name="star" size={32} color="black" style={styles.col} />
-            <Ionicons name="star" size={32} color="gray" style={styles.col} />
+            <Ionicons
+              name="star"
+              size={32}
+              color={star.one ? "black" : "gray"}
+              style={styles.col}
+              onPress={() => {
+                setstar((prevstate) => ({
+                  ...prevstate,
+                  one: !star.one,
+                  two: false,
+                  three: false,
+                  four: false,
+                  five: false,
+                }));
+              }}
+            />
+            <Ionicons
+              name="star"
+              size={32}
+              color={star.two ? "black" : "gray"}
+              style={styles.col}
+              onPress={() => {
+                setstar((prevstate) => ({
+                  ...prevstate,
+                  two: !star.two,
+                  one: true,
+                  three: false,
+                  four: false,
+                  five: false,
+                }));
+              }}
+            />
+            <Ionicons
+              name="star"
+              size={32}
+              color={star.three ? "black" : "gray"}
+              style={styles.col}
+              onPress={() => {
+                setstar((prevstate) => ({
+                  ...prevstate,
+                  three: !star.three,
+                  one: true,
+                  two: true,
+                  four: false,
+                  five: false,
+                }));
+              }}
+            />
+            <Ionicons
+              name="star"
+              size={32}
+              color={star.four ? "black" : "gray"}
+              style={styles.col}
+              onPress={() => {
+                setstar((prevstate) => ({
+                  ...prevstate,
+                  four: !star.four,
+                  one: true,
+                  two: true,
+                  three: true,
+                  five: false,
+                }));
+              }}
+            />
+            <Ionicons
+              name="star"
+              size={32}
+              color={star.five ? "black" : "gray"}
+              style={styles.col}
+              onPress={() => {
+                setstar((prevstate) => ({
+                  ...prevstate,
+                  five: !star.five,
+                  one: true,
+                  two: true,
+                  three: true,
+                  four: true,
+                }));
+              }}
+            />
           </View>
           <View style={styles.last}>
             <View></View>

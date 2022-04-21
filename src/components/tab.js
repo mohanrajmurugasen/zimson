@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Ban from "../../assets/5.png";
@@ -59,6 +60,14 @@ const Tabs = () => {
   const [nonpur, setnonpur] = useState("1");
   const [count, setcount] = useState(1);
   const [imgVal, setimgVal] = useState(0);
+  const [star, setstar] = useState({
+    one: true,
+    two: false,
+    three: false,
+    four: false,
+    five: false,
+  });
+  const width = Dimensions.get("window").width;
   return (
     <View>
       <View style={styles.ban}>
@@ -114,7 +123,12 @@ const Tabs = () => {
           val === 1 ? (
             <NativeBaseProvider>
               <Center>
-                <View style={styles.all}>
+                <View
+                  style={{
+                    width: width - 50,
+                    marginTop: 40,
+                  }}
+                >
                   <Text style={styles.select}>Select Your Brand</Text>
                   <View style={styles.row}>
                     {imgs.slice(0, 5).map((itm, index) => (
@@ -123,7 +137,10 @@ const Tabs = () => {
                         style={itm.num === imgVal ? styles.imgw1 : styles.imgw}
                         onPress={() => setimgVal(itm.num)}
                       >
-                        <Image source={itm.val} style={styles.img1} />
+                        <Image
+                          source={itm.val}
+                          style={{ width: (width - 55) / 5 }}
+                        />
                       </TouchableOpacity>
                     ))}
                   </View>
@@ -134,7 +151,10 @@ const Tabs = () => {
                         onPress={() => setimgVal(itm.num)}
                         style={itm.num === imgVal ? styles.imgw1 : styles.imgw}
                       >
-                        <Image source={itm.val} style={styles.img1} />
+                        <Image
+                          source={itm.val}
+                          style={{ width: (width - 55) / 5 }}
+                        />
                       </TouchableOpacity>
                     ))}
                   </View>
@@ -145,7 +165,10 @@ const Tabs = () => {
                         onPress={() => setimgVal(itm.num)}
                         style={itm.num === imgVal ? styles.imgw1 : styles.imgw}
                       >
-                        <Image source={itm.val} style={styles.img1} />
+                        <Image
+                          source={itm.val}
+                          style={{ width: (width - 55) / 5 }}
+                        />
                       </TouchableOpacity>
                     ))}
                   </View>
@@ -154,32 +177,82 @@ const Tabs = () => {
                     <Ionicons
                       name="star"
                       size={32}
-                      color="#00c8cb"
+                      color={star.one ? "#00c8cb" : "gray"}
                       style={styles.col}
+                      onPress={() => {
+                        setstar((prevstate) => ({
+                          ...prevstate,
+                          one: !star.one,
+                          two: false,
+                          three: false,
+                          four: false,
+                          five: false,
+                        }));
+                      }}
                     />
                     <Ionicons
                       name="star"
                       size={32}
-                      color="#00c8cb"
+                      color={star.two ? "#00c8cb" : "gray"}
                       style={styles.col}
+                      onPress={() => {
+                        setstar((prevstate) => ({
+                          ...prevstate,
+                          two: !star.two,
+                          one: true,
+                          three: false,
+                          four: false,
+                          five: false,
+                        }));
+                      }}
                     />
                     <Ionicons
                       name="star"
                       size={32}
-                      color="#00c8cb"
+                      color={star.three ? "#00c8cb" : "gray"}
                       style={styles.col}
+                      onPress={() => {
+                        setstar((prevstate) => ({
+                          ...prevstate,
+                          three: !star.three,
+                          one: true,
+                          two: true,
+                          four: false,
+                          five: false,
+                        }));
+                      }}
                     />
                     <Ionicons
                       name="star"
                       size={32}
-                      color="#00c8cb"
+                      color={star.four ? "#00c8cb" : "gray"}
                       style={styles.col}
+                      onPress={() => {
+                        setstar((prevstate) => ({
+                          ...prevstate,
+                          four: !star.four,
+                          one: true,
+                          two: true,
+                          three: true,
+                          five: false,
+                        }));
+                      }}
                     />
                     <Ionicons
                       name="star"
                       size={32}
-                      color="gray"
+                      color={star.five ? "#00c8cb" : "gray"}
                       style={styles.col}
+                      onPress={() => {
+                        setstar((prevstate) => ({
+                          ...prevstate,
+                          five: !star.five,
+                          one: true,
+                          two: true,
+                          three: true,
+                          four: true,
+                        }));
+                      }}
                     />
                   </View>
                   <View style={styles.last}>
@@ -425,6 +498,7 @@ const styles = StyleSheet.create({
   },
   img: {
     height: "100%",
+    width: "100%",
   },
   sec: {
     height: "60%",
@@ -465,7 +539,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#00c8cb",
   },
   img1: {
-    width: 167,
+    width: 147,
   },
   row: {
     flexDirection: "row",

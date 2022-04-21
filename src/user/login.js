@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Ban from "../../assets/zimson1.png";
 import {
   Center,
@@ -18,16 +18,25 @@ import {
   ChevronUpIcon,
 } from "native-base";
 import authaxios from "../../interceptors/authaxios";
+import { useDispatch } from "react-redux";
 
 const Login = ({ navigation }) => {
   let [service, setService] = useState("");
   let [value, setvalue] = useState("");
+  let [location, setlocation] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    authaxios
+      .get("location")
+      .then((res) => {
+        setlocation(res.data);
+      })
+      .catch((err) => console.error(err.message));
+  }, []);
 
   const submit = async () => {
     navigation.navigate("store");
-    // await authaxios.post('').then(res => {
-    //   console.log(res.data)
-    // }).catch(err => console.error(err.message))
   };
 
   return (
@@ -87,12 +96,9 @@ const Login = ({ navigation }) => {
                 mt={1}
                 onValueChange={(itemValue) => setService(itemValue)}
               >
-                <Select.Item label="Coimbatore" value="Coimbatore" />
-                <Select.Item label="Chennai" value="Chennai" />
-                <Select.Item label="Bengaluru" value="Bengaluru" />
-                <Select.Item label="Mysuru" value="Mysuru" />
-                <Select.Item label="Salem" value="Salem" />
-                <Select.Item label="Madurai" value="Madurai" />
+                {location.map((itm) => (
+                  <Select.Item label={itm.name} value={itm.name} key={itm.id} />
+                ))}
               </Select>
             </Box>
           </NativeBaseProvider>
@@ -110,6 +116,7 @@ const styles = StyleSheet.create({
   },
   img: {
     height: "100%",
+    width: "100%",
   },
   sec: {
     height: "42%",

@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
   },
   img: {
     height: "100%",
+    width: "100%",
   },
   sec: {
     height: "52%",
