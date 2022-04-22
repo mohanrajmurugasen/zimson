@@ -12,6 +12,8 @@ import { Center, NativeBaseProvider, Radio } from "native-base";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import authaxios from "../../interceptors/authaxios";
+import { useDispatch, useSelector } from "react-redux";
+import { dataProduct } from "../../redux/action/action";
 
 const Store = ({ navigation }) => {
   const [value, setValue] = useState("M");
@@ -21,6 +23,9 @@ const Store = ({ navigation }) => {
   const [email, setemail] = useState("");
   const [dummy, setdummy] = useState(false);
   const [dummy1, setdummy1] = useState(false);
+
+  const dispatch = useDispatch();
+  // const dem = useSelector((state) => state.addData.data);
 
   const [date, setDate] = useState(new Date());
   const [date1, setDate1] = useState(new Date());
@@ -65,6 +70,48 @@ const Store = ({ navigation }) => {
   };
 
   const submit = async () => {
+    dispatch(
+      dataProduct({
+        type: "name",
+        val: name,
+      })
+    );
+    dispatch(
+      dataProduct({
+        type: "phone",
+        val: phone,
+      })
+    );
+    dispatch(
+      dataProduct({
+        type: "email",
+        val: email,
+      })
+    );
+    dispatch(
+      dataProduct({
+        type: "gender",
+        val: value,
+      })
+    );
+    dispatch(
+      dataProduct({
+        type: "age",
+        val: value1,
+      })
+    );
+    dispatch(
+      dataProduct({
+        type: "birthday",
+        val: bday.toString(),
+      })
+    );
+    dispatch(
+      dataProduct({
+        type: "anniversary",
+        val: ani.toString(),
+      })
+    );
     navigation.navigate("about");
     // await authaxios.post('').then(res => {
     //   console.log(res.data)

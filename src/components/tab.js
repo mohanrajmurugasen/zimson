@@ -32,34 +32,43 @@ import { Center, NativeBaseProvider, Radio, Modal } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import Nonpurchase from "./brand/nonpurchase";
 import Service from "./brand/service";
+import { useDispatch, useSelector } from "react-redux";
+import { dataProduct } from "../../redux/action/action";
 
-const Tabs = () => {
+const Tabs = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const dem = useSelector((state) => state.addData.data);
+  console.log(dem);
+
   const [tab, settab] = useState(1);
   const imgs = [
-    { val: one, num: 1 },
-    { val: two, num: 2 },
-    { val: three, num: 3 },
-    { val: four, num: 4 },
-    { val: five, num: 5 },
-    { val: six, num: 6 },
-    { val: seven, num: 7 },
-    { val: eight, num: 8 },
-    { val: nine, num: 9 },
-    { val: ten, num: 10 },
-    { val: eleven, num: 11 },
-    { val: twell, num: 12 },
-    { val: thertin, num: 13 },
-    { val: fourtin, num: 14 },
-    { val: fiftin, num: 15 },
+    { val: one, num: "Rolex" },
+    { val: two, num: "Chopard" },
+    { val: three, num: "Breitling" },
+    { val: four, num: "Gucci" },
+    { val: five, num: "Omega" },
+    { val: six, num: "Bvlgari" },
+    { val: seven, num: "Calvin klein" },
+    { val: eight, num: "Balmain" },
+    { val: nine, num: "Tagheuer" },
+    { val: ten, num: "Swatch" },
+    { val: eleven, num: "Mont blanc" },
+    { val: twell, num: "Rado" },
+    { val: thertin, num: "Hublot" },
+    { val: fourtin, num: "Sevenfriday" },
+    { val: fiftin, num: "Longines" },
   ];
   const [val, setval] = useState(1);
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState("Store Team was Excellent");
   const [value1, setValue1] = useState("1");
+  const [value2, setValue2] = useState("Store Team not friendly");
+  const [value3, setValue3] = useState("1");
   const fam = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const [showModal, setShowModal] = useState(false);
-  const [nonpur, setnonpur] = useState("1");
+  const [nonpur, setnonpur] = useState("Below 5k");
   const [count, setcount] = useState(1);
-  const [imgVal, setimgVal] = useState(0);
+  const [imgVal, setimgVal] = useState("");
+  const [nums, setnums] = useState(0);
   const [star, setstar] = useState({
     one: true,
     two: false,
@@ -68,6 +77,27 @@ const Tabs = () => {
     five: false,
   });
   const width = Dimensions.get("window").width;
+
+  const submits = () => {
+    dispatch(
+      dataProduct({
+        type: "ratePur",
+        val: value2,
+      })
+    );
+    dispatch(
+      dataProduct({
+        type: "family2Pur",
+        val: value3,
+      })
+    );
+    setShowModal(true);
+    setTimeout(() => {
+      navigation.navigate("login");
+      setShowModal(false);
+    }, 1000);
+  };
+
   return (
     <View>
       <View style={styles.ban}>
@@ -180,6 +210,7 @@ const Tabs = () => {
                       color={star.one ? "#00c8cb" : "gray"}
                       style={styles.col}
                       onPress={() => {
+                        setnums(1);
                         setstar((prevstate) => ({
                           ...prevstate,
                           one: !star.one,
@@ -196,6 +227,7 @@ const Tabs = () => {
                       color={star.two ? "#00c8cb" : "gray"}
                       style={styles.col}
                       onPress={() => {
+                        setnums(2);
                         setstar((prevstate) => ({
                           ...prevstate,
                           two: !star.two,
@@ -212,6 +244,7 @@ const Tabs = () => {
                       color={star.three ? "#00c8cb" : "gray"}
                       style={styles.col}
                       onPress={() => {
+                        setnums(3);
                         setstar((prevstate) => ({
                           ...prevstate,
                           three: !star.three,
@@ -228,6 +261,7 @@ const Tabs = () => {
                       color={star.four ? "#00c8cb" : "gray"}
                       style={styles.col}
                       onPress={() => {
+                        setnums(4);
                         setstar((prevstate) => ({
                           ...prevstate,
                           four: !star.four,
@@ -244,6 +278,7 @@ const Tabs = () => {
                       color={star.five ? "#00c8cb" : "gray"}
                       style={styles.col}
                       onPress={() => {
+                        setnums(5);
                         setstar((prevstate) => ({
                           ...prevstate,
                           five: !star.five,
@@ -259,7 +294,21 @@ const Tabs = () => {
                     <View></View>
                     <TouchableOpacity
                       style={styles.button}
-                      onPress={() => setval(2)}
+                      onPress={() => {
+                        dispatch(
+                          dataProduct({
+                            type: "brandPur",
+                            val: imgVal,
+                          })
+                        );
+                        dispatch(
+                          dataProduct({
+                            type: "starPur",
+                            val: nums,
+                          })
+                        );
+                        setval(2);
+                      }}
                     >
                       <Text style={styles.submit}>Next</Text>
                     </TouchableOpacity>
@@ -284,26 +333,38 @@ const Tabs = () => {
                       }}
                     >
                       <View style={styles.top}>
-                        <Radio value="1" size="lg" my={1}>
+                        <Radio
+                          value="Store Team was Excellent"
+                          size="lg"
+                          my={1}
+                        >
                           <Text style={styles.rads}>
                             Store Team was Excellent
                           </Text>
                         </Radio>
                       </View>
                       <View style={styles.top}>
-                        <Radio value="2" size="lg" my={1}>
+                        <Radio
+                          value="Product Range was Excellent"
+                          size="lg"
+                          my={1}
+                        >
                           <Text style={styles.rads}>
                             Product Range was Excellent
                           </Text>
                         </Radio>
                       </View>
                       <View style={styles.top}>
-                        <Radio value="3" size="lg" my={1}>
+                        <Radio value="Ambientswas Excellent" size="lg" my={1}>
                           <Text style={styles.rads}>Ambientswas Excellent</Text>
                         </Radio>
                       </View>
                       <View style={styles.top}>
-                        <Radio value="4" size="lg" my={1}>
+                        <Radio
+                          value="Other Aspects were Excellent"
+                          size="lg"
+                          my={1}
+                        >
                           <Text style={styles.rads}>
                             Other Aspects were Excellent
                           </Text>
@@ -348,7 +409,21 @@ const Tabs = () => {
                     <View></View>
                     <TouchableOpacity
                       style={styles.button}
-                      onPress={() => setval(3)}
+                      onPress={() => {
+                        dispatch(
+                          dataProduct({
+                            type: "reasonPur",
+                            val: value,
+                          })
+                        );
+                        dispatch(
+                          dataProduct({
+                            type: "familyPur",
+                            val: value1,
+                          })
+                        );
+                        setval(3);
+                      }}
                     >
                       <Text style={styles.submit}>Next</Text>
                     </TouchableOpacity>
@@ -367,27 +442,27 @@ const Tabs = () => {
                     <Radio.Group
                       name="myRadioGroup"
                       accessibilityLabel="favorite number"
-                      value={value}
+                      value={value2}
                       onChange={(nextValue) => {
-                        setValue(nextValue);
+                        setValue2(nextValue);
                       }}
                     >
                       <View style={styles.top}>
-                        <Radio value="1" size="lg" my={1}>
+                        <Radio value="Store Team not friendly" size="lg" my={1}>
                           <Text style={styles.rads}>
                             Store Team not friendly
                           </Text>
                         </Radio>
                       </View>
                       <View style={styles.top}>
-                        <Radio value="2" size="lg" my={1}>
+                        <Radio value="Product Range not good" size="lg" my={1}>
                           <Text style={styles.rads}>
                             Product Range not good
                           </Text>
                         </Radio>
                       </View>
                       <View style={styles.top}>
-                        <Radio value="3" size="lg" my={1}>
+                        <Radio value="Others" size="lg" my={1}>
                           <Text style={styles.rads}>Others</Text>
                         </Radio>
                       </View>
@@ -401,9 +476,9 @@ const Tabs = () => {
                     <Radio.Group
                       name="myRadioGroup"
                       accessibilityLabel="favorite number"
-                      value={value1}
+                      value={value3}
                       onChange={(nextValue) => {
-                        setValue1(nextValue);
+                        setValue3(nextValue);
                       }}
                     >
                       <View style={{ flexDirection: "row", marginBottom: 30 }}>
@@ -428,10 +503,7 @@ const Tabs = () => {
                   </Center>
                   <View style={styles.last}>
                     <View></View>
-                    <TouchableOpacity
-                      style={styles.button}
-                      onPress={() => setShowModal(true)}
-                    >
+                    <TouchableOpacity style={styles.button} onPress={submits}>
                       <Text style={styles.submit}>Submit</Text>
                     </TouchableOpacity>
                   </View>

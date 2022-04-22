@@ -11,12 +11,23 @@ import React, { useState } from "react";
 import Ban from "../../assets/3.png";
 import { Center, NativeBaseProvider, Radio } from "native-base";
 import authaxios from "../../interceptors/authaxios";
+import { useDispatch, useSelector } from "react-redux";
+import { dataProduct } from "../../redux/action/action";
 
 const About = ({ navigation }) => {
   const [value, setValue] = useState("digital media");
   const [other, setother] = useState("");
 
+  const dispatch = useDispatch();
+  // const dem = useSelector((state) => state.addData.data);
+
   const submit = async () => {
+    dispatch(
+      dataProduct({
+        type: "about",
+        val: value,
+      })
+    );
     navigation.navigate("tabs");
     // await authaxios.post('').then(res => {
     //   console.log(res.data)

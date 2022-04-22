@@ -9,8 +9,14 @@ import React, { useState } from "react";
 import { Radio, NativeBaseProvider, Center } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { dataProduct } from "../../../redux/action/action";
+import { useNavigation } from "@react-navigation/native";
 
 function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
+  const dispatch = useDispatch();
+  // const dem = useSelector((state) => state.addData.data);
+  const navigation = useNavigation();
   const fam = [
     "Below 5k",
     "5k - 10k",
@@ -29,6 +35,42 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
     four: false,
     five: false,
   });
+
+  const [brand, setbrand] = useState("");
+  const [reason, setreason] = useState("");
+  const [num, setnum] = useState(0);
+
+  const submiting = () => {
+    dispatch(
+      dataProduct({
+        type: "priceNon",
+        val: nonpur,
+      })
+    );
+    dispatch(
+      dataProduct({
+        type: "brandNon",
+        val: brand,
+      })
+    );
+    dispatch(
+      dataProduct({
+        type: "reasonNon",
+        val: reason,
+      })
+    );
+    dispatch(
+      dataProduct({
+        type: "starNon",
+        val: num,
+      })
+    );
+    setShowModal(true);
+    setTimeout(() => {
+      navigation.navigate("login");
+      setShowModal(false);
+    }, 1000);
+  };
   return (
     <NativeBaseProvider>
       <Center>
@@ -63,9 +105,17 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
             </View>
           </Radio.Group>
           <Text style={styles.three}>Expected Brand</Text>
-          <TextInput style={styles.ins} />
+          <TextInput
+            style={styles.ins}
+            value={brand}
+            onChangeText={(txt) => setbrand(txt)}
+          />
           <Text style={styles.four}>Other Reasons</Text>
-          <TextInput style={styles.ins} />
+          <TextInput
+            style={styles.ins}
+            value={reason}
+            onChangeText={(txt) => setreason(txt)}
+          />
           <Text style={styles.five}>Rate Your Experience</Text>
           <View style={styles.star}>
             <Ionicons
@@ -74,6 +124,7 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
               color={star.one ? "black" : "gray"}
               style={styles.col}
               onPress={() => {
+                setnum(1);
                 setstar((prevstate) => ({
                   ...prevstate,
                   one: !star.one,
@@ -90,6 +141,7 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
               color={star.two ? "black" : "gray"}
               style={styles.col}
               onPress={() => {
+                setnum(2);
                 setstar((prevstate) => ({
                   ...prevstate,
                   two: !star.two,
@@ -106,6 +158,7 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
               color={star.three ? "black" : "gray"}
               style={styles.col}
               onPress={() => {
+                setnum(3);
                 setstar((prevstate) => ({
                   ...prevstate,
                   three: !star.three,
@@ -122,6 +175,7 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
               color={star.four ? "black" : "gray"}
               style={styles.col}
               onPress={() => {
+                setnum(4);
                 setstar((prevstate) => ({
                   ...prevstate,
                   four: !star.four,
@@ -138,6 +192,7 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
               color={star.five ? "black" : "gray"}
               style={styles.col}
               onPress={() => {
+                setnum(5);
                 setstar((prevstate) => ({
                   ...prevstate,
                   five: !star.five,
@@ -151,10 +206,7 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
           </View>
           <View style={styles.last}>
             <View></View>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => setShowModal(true)}
-            >
+            <TouchableOpacity style={styles.button} onPress={submiting}>
               <Text style={styles.submit}>Submit</Text>
             </TouchableOpacity>
           </View>
