@@ -34,11 +34,12 @@ import Nonpurchase from "./brand/nonpurchase";
 import Service from "./brand/service";
 import { useDispatch, useSelector } from "react-redux";
 import { dataProduct } from "../../redux/action/action";
+import authaxios from "../../interceptors/authaxios";
 
 const Tabs = ({ navigation }) => {
   const dispatch = useDispatch();
   const dem = useSelector((state) => state.addData.data);
-  console.log(dem);
+  // console.log(dem);
 
   const [tab, settab] = useState(1);
   const imgs = [
@@ -61,7 +62,7 @@ const Tabs = ({ navigation }) => {
   const [val, setval] = useState(1);
   const [value, setValue] = useState("Store Team was Excellent");
   const [value1, setValue1] = useState("1");
-  const [value2, setValue2] = useState("Store Team not friendly");
+  const [value2, setValue2] = useState("Store team not friendly");
   const [value3, setValue3] = useState("1");
   const fam = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const [showModal, setShowModal] = useState(false);
@@ -79,25 +80,36 @@ const Tabs = ({ navigation }) => {
   const width = Dimensions.get("window").width;
 
   const submits = () => {
-    dispatch(
-      dataProduct({
-        type: "ratePur",
-        val: value2,
+    const item = {
+      user: dem.user,
+      location: dem.location,
+      name: dem.name,
+      phone: dem.phone,
+      email: dem.email,
+      gender: dem.gender,
+      age: dem.age,
+      birthday: dem.birthday,
+      anniversary: dem.anniversary,
+      about: dem.about,
+      brand: dem.brandPur,
+      star: dem.starPur,
+      reason: dem.reasonPur,
+      family: dem.familyPur,
+      rate: dem.ratePur,
+      family2: dem.family2Pur,
+    };
+    authaxios
+      .post("purchase", item)
+      .then((res) => {
+        console.log(res.data);
+        setShowModal(true);
+        setTimeout(() => {
+          navigation.navigate("login");
+          setShowModal(false);
+        }, 1000);
       })
-    );
-    dispatch(
-      dataProduct({
-        type: "family2Pur",
-        val: value3,
-      })
-    );
-    setShowModal(true);
-    setTimeout(() => {
-      navigation.navigate("login");
-      setShowModal(false);
-    }, 1000);
+      .catch((err) => console.error(err.message));
   };
-
   return (
     <View>
       <View style={styles.ban}>
@@ -298,13 +310,13 @@ const Tabs = ({ navigation }) => {
                         dispatch(
                           dataProduct({
                             type: "brandPur",
-                            val: imgVal,
+                            val: `${imgVal}`,
                           })
                         );
                         dispatch(
                           dataProduct({
                             type: "starPur",
-                            val: nums,
+                            val: Number(nums),
                           })
                         );
                         setval(2);
@@ -413,13 +425,13 @@ const Tabs = ({ navigation }) => {
                         dispatch(
                           dataProduct({
                             type: "reasonPur",
-                            val: value,
+                            val: `${value}`,
                           })
                         );
                         dispatch(
                           dataProduct({
                             type: "familyPur",
-                            val: value1,
+                            val: Number(value1),
                           })
                         );
                         setval(3);
@@ -438,26 +450,32 @@ const Tabs = ({ navigation }) => {
                   <Text style={styles.select1}>
                     Please rate us on the following parameters
                   </Text>
-                  <Center>
+                  <View style={{ marginLeft: "30%" }}>
                     <Radio.Group
                       name="myRadioGroup"
                       accessibilityLabel="favorite number"
                       value={value2}
                       onChange={(nextValue) => {
                         setValue2(nextValue);
+                        dispatch(
+                          dataProduct({
+                            type: "ratePur",
+                            val: `${nextValue}`,
+                          })
+                        );
                       }}
                     >
                       <View style={styles.top}>
-                        <Radio value="Store Team not friendly" size="lg" my={1}>
+                        <Radio value="Store team not friendly" size="lg" my={1}>
                           <Text style={styles.rads}>
-                            Store Team not friendly
+                            Store team not friendly
                           </Text>
                         </Radio>
                       </View>
                       <View style={styles.top}>
-                        <Radio value="Product Range not good" size="lg" my={1}>
+                        <Radio value="Product range not good" size="lg" my={1}>
                           <Text style={styles.rads}>
-                            Product Range not good
+                            Product range not good
                           </Text>
                         </Radio>
                       </View>
@@ -467,18 +485,24 @@ const Tabs = ({ navigation }) => {
                         </Radio>
                       </View>
                     </Radio.Group>
-                  </Center>
+                  </View>
                   <Text style={styles.exp1}>
                     How likely are you to recommend our store to your friends
                     and family ?
                   </Text>
-                  <Center>
+                  <View style={{ marginLeft: "15%" }}>
                     <Radio.Group
                       name="myRadioGroup"
                       accessibilityLabel="favorite number"
                       value={value3}
                       onChange={(nextValue) => {
                         setValue3(nextValue);
+                        dispatch(
+                          dataProduct({
+                            type: "family2Pur",
+                            val: `${nextValue}`,
+                          })
+                        );
                       }}
                     >
                       <View style={{ flexDirection: "row", marginBottom: 30 }}>
@@ -500,7 +524,7 @@ const Tabs = ({ navigation }) => {
                         ))}
                       </View>
                     </Radio.Group>
-                  </Center>
+                  </View>
                   <View style={styles.last}>
                     <View></View>
                     <TouchableOpacity style={styles.button} onPress={submits}>

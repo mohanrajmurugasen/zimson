@@ -16,8 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { dataProduct } from "../../redux/action/action";
 
 const Store = ({ navigation }) => {
-  const [value, setValue] = useState("M");
-  const [value1, setValue1] = useState("1");
+  const [value, setValue] = useState("Male");
+  const [value1, setValue1] = useState("Under 25");
   const [name, setname] = useState("");
   const [phone, setphone] = useState("");
   const [email, setemail] = useState("");
@@ -73,31 +73,31 @@ const Store = ({ navigation }) => {
     dispatch(
       dataProduct({
         type: "name",
-        val: name,
+        val: `${name}`,
       })
     );
     dispatch(
       dataProduct({
         type: "phone",
-        val: phone,
+        val: `${phone}`,
       })
     );
     dispatch(
       dataProduct({
         type: "email",
-        val: email,
+        val: `${email}`,
       })
     );
     dispatch(
       dataProduct({
         type: "gender",
-        val: value,
+        val: `${value}`,
       })
     );
     dispatch(
       dataProduct({
         type: "age",
-        val: value1,
+        val: `${value1}`,
       })
     );
     dispatch(
@@ -161,12 +161,12 @@ const Store = ({ navigation }) => {
                 <View style={{ flexDirection: "row" }}>
                   <Text style={styles.gender}>Gender</Text>
                   <View style={{ marginRight: 40 }}>
-                    <Radio value="M" my={1}>
+                    <Radio value="Male" my={1}>
                       <Text style={styles.radioText}>Male</Text>
                     </Radio>
                   </View>
                   <View>
-                    <Radio value="F" my={1}>
+                    <Radio value="Female" my={1}>
                       <Text style={styles.radioText}>Female</Text>
                     </Radio>
                   </View>
@@ -185,29 +185,29 @@ const Store = ({ navigation }) => {
                 <View style={{ flexDirection: "row", marginBottom: 20 }}>
                   <Text style={styles.gender}>Age Group</Text>
                   <View style={{ marginRight: 40 }}>
-                    <Radio value="1" my={1}>
+                    <Radio value="Under 25" my={1}>
                       <Text style={styles.radioText}>Under 25</Text>
                     </Radio>
                   </View>
                   <View>
-                    <Radio value="2" my={1}>
+                    <Radio value="25 - 34" my={1}>
                       <Text style={styles.radioText}>25 - 34</Text>
                     </Radio>
                   </View>
                 </View>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ marginRight: 40 }}>
-                    <Radio value="3" my={1}>
+                    <Radio value="35 - 44" my={1}>
                       <Text style={styles.radioText}>35 - 44</Text>
                     </Radio>
                   </View>
                   <View style={{ marginRight: 40 }}>
-                    <Radio value="4" my={1}>
+                    <Radio value="45 - 54" my={1}>
                       <Text style={styles.radioText}>45 - 54</Text>
                     </Radio>
                   </View>
                   <View>
-                    <Radio value="5" my={1}>
+                    <Radio value="55 and above" my={1}>
                       <Text style={styles.radioText}>55 and above</Text>
                     </Radio>
                   </View>

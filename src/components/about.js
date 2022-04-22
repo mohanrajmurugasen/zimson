@@ -15,19 +15,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { dataProduct } from "../../redux/action/action";
 
 const About = ({ navigation }) => {
-  const [value, setValue] = useState("digital media");
+  const [value, setValue] = useState("Digital Media");
   const [other, setother] = useState("");
 
   const dispatch = useDispatch();
   // const dem = useSelector((state) => state.addData.data);
 
   const submit = async () => {
-    dispatch(
-      dataProduct({
-        type: "about",
-        val: value,
-      })
-    );
+    if (value === "Others") {
+      dispatch(
+        dataProduct({
+          type: "about",
+          val: `${other}`,
+        })
+      );
+    } else {
+      dispatch(
+        dataProduct({
+          type: "about",
+          val: `${value}`,
+        })
+      );
+    }
+
     navigation.navigate("tabs");
     // await authaxios.post('').then(res => {
     //   console.log(res.data)
@@ -52,32 +62,32 @@ const About = ({ navigation }) => {
                 }}
               >
                 <View style={styles.digi}>
-                  <Radio value="digital media" size="lg" my={1}>
+                  <Radio value="Digital Media" size="lg" my={1}>
                     <Text style={styles.radioText}>Digital Media</Text>
                   </Radio>
                 </View>
                 <View style={styles.digi}>
-                  <Radio value="print media" size="lg" my={1}>
+                  <Radio value="Print Media" size="lg" my={1}>
                     <Text style={styles.radioText}>Print Media</Text>
                   </Radio>
                 </View>
                 <View style={styles.digi}>
-                  <Radio value="social media" size="lg" my={1}>
+                  <Radio value="Social Media" size="lg" my={1}>
                     <Text style={styles.radioText}>Social Media</Text>
                   </Radio>
                 </View>
                 <View style={styles.digi}>
-                  <Radio value="radio ad" size="lg" my={1}>
+                  <Radio value="Radio Ad" size="lg" my={1}>
                     <Text style={styles.radioText}>Radio Ad</Text>
                   </Radio>
                 </View>
                 <View style={styles.digi}>
-                  <Radio value="family or friends" size="lg" my={1}>
+                  <Radio value="Family or Friends" size="lg" my={1}>
                     <Text style={styles.radioText}>Family (or) Friends</Text>
                   </Radio>
                 </View>
                 <View style={styles.digi}>
-                  <Radio value="other" size="lg" my={1}>
+                  <Radio value="Other" size="lg" my={1}>
                     <View style={styles.other}>
                       <Text style={styles.radioText}>Others</Text>
                       <TextInput

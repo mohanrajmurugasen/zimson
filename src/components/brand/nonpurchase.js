@@ -12,10 +12,11 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { dataProduct } from "../../../redux/action/action";
 import { useNavigation } from "@react-navigation/native";
+import authaxios from "../../../interceptors/authaxios";
 
 function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
   const dispatch = useDispatch();
-  // const dem = useSelector((state) => state.addData.data);
+  const dem = useSelector((state) => state.addData.data);
   const navigation = useNavigation();
   const fam = [
     "Below 5k",
@@ -41,35 +42,33 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
   const [num, setnum] = useState(0);
 
   const submiting = () => {
-    dispatch(
-      dataProduct({
-        type: "priceNon",
-        val: nonpur,
+    const item = {
+      user: dem.user,
+      location: dem.location,
+      name: dem.name,
+      phone: dem.phone,
+      email: dem.email,
+      gender: dem.gender,
+      age: dem.age,
+      birthday: dem.birthday,
+      anniversary: dem.anniversary,
+      about: dem.about,
+      price: dem.priceNon,
+      brand: dem.brandNon,
+      reason: dem.reasonNon,
+      star: dem.starNon,
+    };
+    authaxios
+      .post("nonpurchase", item)
+      .then((res) => {
+        console.log(res.data);
+        setShowModal(true);
+        setTimeout(() => {
+          navigation.navigate("login");
+          setShowModal(false);
+        }, 1000);
       })
-    );
-    dispatch(
-      dataProduct({
-        type: "brandNon",
-        val: brand,
-      })
-    );
-    dispatch(
-      dataProduct({
-        type: "reasonNon",
-        val: reason,
-      })
-    );
-    dispatch(
-      dataProduct({
-        type: "starNon",
-        val: num,
-      })
-    );
-    setShowModal(true);
-    setTimeout(() => {
-      navigation.navigate("login");
-      setShowModal(false);
-    }, 1000);
+      .catch((err) => console.error(err.message));
   };
   return (
     <NativeBaseProvider>
@@ -83,6 +82,12 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
             value={nonpur}
             onChange={(nextValue) => {
               setnonpur(nextValue);
+              dispatch(
+                dataProduct({
+                  type: "priceNon",
+                  val: `${nextValue}`,
+                })
+              );
             }}
           >
             <View style={{ flexDirection: "row", marginBottom: 30 }}>
@@ -108,13 +113,29 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
           <TextInput
             style={styles.ins}
             value={brand}
-            onChangeText={(txt) => setbrand(txt)}
+            onChangeText={(txt) => {
+              setbrand(txt);
+              dispatch(
+                dataProduct({
+                  type: "brandNon",
+                  val: `${txt}`,
+                })
+              );
+            }}
           />
           <Text style={styles.four}>Other Reasons</Text>
           <TextInput
             style={styles.ins}
             value={reason}
-            onChangeText={(txt) => setreason(txt)}
+            onChangeText={(txt) => {
+              dispatch(
+                dataProduct({
+                  type: "reasonNon",
+                  val: `${txt}`,
+                })
+              );
+              setreason(txt);
+            }}
           />
           <Text style={styles.five}>Rate Your Experience</Text>
           <View style={styles.star}>
@@ -125,6 +146,12 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
               style={styles.col}
               onPress={() => {
                 setnum(1);
+                dispatch(
+                  dataProduct({
+                    type: "starNon",
+                    val: `${1}`,
+                  })
+                );
                 setstar((prevstate) => ({
                   ...prevstate,
                   one: !star.one,
@@ -142,6 +169,12 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
               style={styles.col}
               onPress={() => {
                 setnum(2);
+                dispatch(
+                  dataProduct({
+                    type: "starNon",
+                    val: `${2}`,
+                  })
+                );
                 setstar((prevstate) => ({
                   ...prevstate,
                   two: !star.two,
@@ -159,6 +192,12 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
               style={styles.col}
               onPress={() => {
                 setnum(3);
+                dispatch(
+                  dataProduct({
+                    type: "starNon",
+                    val: `${3}`,
+                  })
+                );
                 setstar((prevstate) => ({
                   ...prevstate,
                   three: !star.three,
@@ -176,6 +215,12 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
               style={styles.col}
               onPress={() => {
                 setnum(4);
+                dispatch(
+                  dataProduct({
+                    type: "starNon",
+                    val: `${4}`,
+                  })
+                );
                 setstar((prevstate) => ({
                   ...prevstate,
                   four: !star.four,
@@ -193,6 +238,12 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
               style={styles.col}
               onPress={() => {
                 setnum(5);
+                dispatch(
+                  dataProduct({
+                    type: "starNon",
+                    val: `${5}`,
+                  })
+                );
                 setstar((prevstate) => ({
                   ...prevstate,
                   five: !star.five,

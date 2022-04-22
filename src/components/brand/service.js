@@ -12,10 +12,11 @@ import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { dataProduct } from "../../../redux/action/action";
+import authaxios from "../../../interceptors/authaxios";
 
 const Service = ({ setShowModal, setcount, count }) => {
   const dispatch = useDispatch();
-  // const dem = useSelector((state) => state.addData.data);
+  const dem = useSelector((state) => state.addData.data);
   const navigation = useNavigation();
 
   const [values, setValues] = useState("");
@@ -62,28 +63,58 @@ const Service = ({ setShowModal, setcount, count }) => {
       if (y === 0) {
         setemoj((prevstate) => ({
           ...prevstate,
-          one: "Excellent",
+          one: "Good",
         }));
+        dispatch(
+          dataProduct({
+            type: "qualityServ",
+            val: "Good",
+          })
+        );
       } else if (y === 1) {
         setemoj((prevstate) => ({
           ...prevstate,
-          one: "Very Good",
+          one: "Excellent",
         }));
+        dispatch(
+          dataProduct({
+            type: "qualityServ",
+            val: "Excellent",
+          })
+        );
       } else if (y === 2) {
         setemoj((prevstate) => ({
           ...prevstate,
-          one: "Good",
+          one: "Intermediate",
         }));
+        dispatch(
+          dataProduct({
+            type: "qualityServ",
+            val: "Intermediate",
+          })
+        );
       } else if (y === 3) {
         setemoj((prevstate) => ({
           ...prevstate,
           one: "Bad",
         }));
+        dispatch(
+          dataProduct({
+            type: "qualityServ",
+            val: "Bad",
+          })
+        );
       } else if (y === 4) {
         setemoj((prevstate) => ({
           ...prevstate,
-          one: "Poor",
+          one: "Worst",
         }));
+        dispatch(
+          dataProduct({
+            type: "qualityServ",
+            val: "Worst",
+          })
+        );
       }
     } else if (x === 2) {
       setemojCol((prevstate) => ({
@@ -93,28 +124,58 @@ const Service = ({ setShowModal, setcount, count }) => {
       if (y === 0) {
         setemoj((prevstate) => ({
           ...prevstate,
-          two: "Excellent",
+          two: "Good",
         }));
+        dispatch(
+          dataProduct({
+            type: "deliveryServ",
+            val: "Good",
+          })
+        );
       } else if (y === 1) {
         setemoj((prevstate) => ({
           ...prevstate,
-          two: "Very Good",
+          two: "Excellent",
         }));
+        dispatch(
+          dataProduct({
+            type: "deliveryServ",
+            val: "Excellent",
+          })
+        );
       } else if (y === 2) {
         setemoj((prevstate) => ({
           ...prevstate,
-          two: "Good",
+          two: "Intermediate",
         }));
+        dispatch(
+          dataProduct({
+            type: "deliveryServ",
+            val: "Intermediate",
+          })
+        );
       } else if (y === 3) {
         setemoj((prevstate) => ({
           ...prevstate,
           two: "Bad",
         }));
+        dispatch(
+          dataProduct({
+            type: "deliveryServ",
+            val: "Bad",
+          })
+        );
       } else if (y === 4) {
         setemoj((prevstate) => ({
           ...prevstate,
-          two: "Poor",
+          two: "Worst",
         }));
+        dispatch(
+          dataProduct({
+            type: "deliveryServ",
+            val: "Worst",
+          })
+        );
       }
     } else if (x === 3) {
       setemojCol((prevstate) => ({
@@ -124,68 +185,91 @@ const Service = ({ setShowModal, setcount, count }) => {
       if (y === 0) {
         setemoj((prevstate) => ({
           ...prevstate,
-          three: "Excellent",
+          three: "Good",
         }));
+        dispatch(
+          dataProduct({
+            type: "jobServ",
+            val: "Good",
+          })
+        );
       } else if (y === 1) {
         setemoj((prevstate) => ({
           ...prevstate,
-          three: "Very Good",
+          three: "Excellent",
         }));
+        dispatch(
+          dataProduct({
+            type: "jobServ",
+            val: "Excellent",
+          })
+        );
       } else if (y === 2) {
         setemoj((prevstate) => ({
           ...prevstate,
-          three: "Good",
+          three: "Intermediate",
         }));
+        dispatch(
+          dataProduct({
+            type: "jobServ",
+            val: "Intermediate",
+          })
+        );
       } else if (y === 3) {
         setemoj((prevstate) => ({
           ...prevstate,
           three: "Bad",
         }));
+        dispatch(
+          dataProduct({
+            type: "jobServ",
+            val: "Bad",
+          })
+        );
       } else if (y === 4) {
         setemoj((prevstate) => ({
           ...prevstate,
-          three: "Poor",
+          three: "Worst",
         }));
+        dispatch(
+          dataProduct({
+            type: "jobServ",
+            val: "Worst",
+          })
+        );
       }
     }
   };
 
   const submitings = () => {
-    dispatch(
-      dataProduct({
-        type: "receiptServ",
-        val: values,
+    const item = {
+      user: dem.user,
+      location: dem.location,
+      name: dem.name,
+      phone: dem.phone,
+      email: dem.email,
+      gender: dem.gender,
+      age: dem.age,
+      birthday: dem.birthday,
+      anniversary: dem.anniversary,
+      about: dem.about,
+      receipt: dem.receiptServ,
+      family: dem.familyServ,
+      quality: dem.qualityServ,
+      delivery: dem.deliveryServ,
+      job: dem.jobServ,
+    };
+    authaxios
+      .post("service", item)
+      .then((res) => {
+        console.log(res.data);
+        setShowModal(true);
+        setTimeout(() => {
+          navigation.navigate("login");
+          setShowModal(false);
+        }, 1000);
       })
-    );
-    dispatch(
-      dataProduct({
-        type: "familyServ",
-        val: value1,
-      })
-    );
-    dispatch(
-      dataProduct({
-        type: "qualityServ",
-        val: emoj.one,
-      })
-    );
-    dispatch(
-      dataProduct({
-        type: "deliveryServ",
-        val: emoj.two,
-      })
-    );
-    dispatch(
-      dataProduct({
-        type: "jobServ",
-        val: emoj.three,
-      })
-    );
-    setShowModal(true);
-    setTimeout(() => {
-      navigation.navigate("login");
-      setShowModal(false);
-    }, 1000);
+      .catch((err) => console.error(err.message));
   };
   return (
     <NativeBaseProvider>
@@ -200,7 +284,15 @@ const Service = ({ setShowModal, setcount, count }) => {
                 <TextInput
                   style={styles.input}
                   value={values}
-                  onChangeText={(txt) => setValue1(txt)}
+                  onChangeText={(txt) => {
+                    setValues(txt);
+                    dispatch(
+                      dataProduct({
+                        type: "receiptServ",
+                        val: `${txt}`,
+                      })
+                    );
+                  }}
                 />
                 <TouchableOpacity
                   style={styles.button}
@@ -224,6 +316,12 @@ const Service = ({ setShowModal, setcount, count }) => {
                 value={value1}
                 onChange={(nextValue) => {
                   setValue1(nextValue);
+                  dispatch(
+                    dataProduct({
+                      type: "familyServ",
+                      val: `${nextValue}`,
+                    })
+                  );
                 }}
               >
                 <View style={{ flexDirection: "row", marginBottom: 30 }}>

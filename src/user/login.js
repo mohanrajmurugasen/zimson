@@ -41,13 +41,13 @@ const Login = ({ navigation }) => {
     dispatch(
       dataProduct({
         type: "user",
-        val: value,
+        val: `${value}`,
       })
     );
     dispatch(
       dataProduct({
         type: "location",
-        val: service,
+        val: `${service}`,
       })
     );
     navigation.navigate("store");
