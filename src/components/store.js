@@ -238,8 +238,7 @@ const Store = ({ navigation }) => {
                 {name !== "" &&
                 phone !== "" &&
                 email !== "" &&
-                dummy &&
-                dummy1 &&
+                (dummy || dummy1) &&
                 value !== "" &&
                 value1 !== "" ? (
                   <TouchableOpacity style={styles.button} onPress={submit}>
