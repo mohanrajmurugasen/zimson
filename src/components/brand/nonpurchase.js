@@ -257,9 +257,15 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
           </View>
           <View style={styles.last}>
             <View></View>
-            <TouchableOpacity style={styles.button} onPress={submiting}>
-              <Text style={styles.submit}>Submit</Text>
-            </TouchableOpacity>
+            {brand !== "" && reason !== "" ? (
+              <TouchableOpacity style={styles.button} onPress={submiting}>
+                <Text style={styles.submit}>Submit</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity style={styles.button2}>
+                <Text style={styles.submit2}>Submit</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </Center>
@@ -290,6 +296,16 @@ const styles = StyleSheet.create({
   },
   submit: {
     color: "white",
+    fontSize: 20,
+    textAlign: "center",
+    paddingVertical: 10,
+  },
+  button2: {
+    backgroundColor: "#80808070",
+    width: 100,
+  },
+  submit2: {
+    color: "gray",
     fontSize: 20,
     textAlign: "center",
     paddingVertical: 10,

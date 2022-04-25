@@ -69,9 +69,15 @@ const Login = ({ navigation }) => {
                 value={value}
                 onChangeText={(txt) => setvalue(txt)}
               />
-              <TouchableOpacity style={styles.button} onPress={submit}>
-                <Text style={styles.submit}>Submit</Text>
-              </TouchableOpacity>
+              {value !== "" ? (
+                <TouchableOpacity style={styles.button} onPress={submit}>
+                  <Text style={styles.submit}>Submit</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity style={styles.button2}>
+                  <Text style={styles.submit2}>Submit</Text>
+                </TouchableOpacity>
+              )}
             </View>
           </Center>
         </NativeBaseProvider>
@@ -164,6 +170,15 @@ const styles = StyleSheet.create({
   },
   submit: {
     color: "white",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    fontSize: 20,
+  },
+  button2: {
+    backgroundColor: "#80808070",
+  },
+  submit2: {
+    color: "gray",
     paddingVertical: 10,
     paddingHorizontal: 15,
     fontSize: 20,

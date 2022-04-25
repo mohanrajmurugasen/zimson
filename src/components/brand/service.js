@@ -294,12 +294,18 @@ const Service = ({ setShowModal, setcount, count }) => {
                     );
                   }}
                 />
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => setcount(2)}
-                >
-                  <Text style={styles.submit}>Next</Text>
-                </TouchableOpacity>
+                {values !== "" ? (
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => setcount(2)}
+                  >
+                    <Text style={styles.submit}>Next</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity style={styles.button2}>
+                    <Text style={styles.submit2}>Next</Text>
+                  </TouchableOpacity>
+                )}
               </View>
             </Center>
           </View>
@@ -492,6 +498,15 @@ const styles = StyleSheet.create({
   },
   submit: {
     color: "white",
+    paddingVertical: 10,
+    paddingHorizontal: 25,
+    fontSize: 20,
+  },
+  button2: {
+    backgroundColor: "#80808070",
+  },
+  submit2: {
+    color: "gray",
     paddingVertical: 10,
     paddingHorizontal: 25,
     fontSize: 20,

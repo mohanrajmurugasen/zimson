@@ -233,9 +233,19 @@ const Store = ({ navigation }) => {
                   {dummy1 ? ani.toString() : "Anniversary"}
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={submit}>
-                <Text style={styles.submit}>Submit</Text>
-              </TouchableOpacity>
+              {name !== "" &&
+              phone !== "" &&
+              email !== "" &&
+              dummy &&
+              dummy1 ? (
+                <TouchableOpacity style={styles.button} onPress={submit}>
+                  <Text style={styles.submit}>Submit</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity style={styles.button2}>
+                  <Text style={styles.submit2}>Submit</Text>
+                </TouchableOpacity>
+              )}
             </View>
           </Center>
         </View>
@@ -348,6 +358,17 @@ const styles = StyleSheet.create({
   },
   submit: {
     color: "white",
+    fontSize: 20,
+    textAlign: "center",
+    marginTop: 7,
+  },
+  button2: {
+    backgroundColor: "#80808070",
+    width: 90,
+    height: 45,
+  },
+  submit2: {
+    color: "gray",
     fontSize: 20,
     textAlign: "center",
     marginTop: 7,

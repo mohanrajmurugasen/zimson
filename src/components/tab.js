@@ -304,26 +304,32 @@ const Tabs = ({ navigation }) => {
                   </View>
                   <View style={styles.last}>
                     <View></View>
-                    <TouchableOpacity
-                      style={styles.button}
-                      onPress={() => {
-                        dispatch(
-                          dataProduct({
-                            type: "brandPur",
-                            val: `${imgVal}`,
-                          })
-                        );
-                        dispatch(
-                          dataProduct({
-                            type: "starPur",
-                            val: Number(nums),
-                          })
-                        );
-                        setval(2);
-                      }}
-                    >
-                      <Text style={styles.submit}>Next</Text>
-                    </TouchableOpacity>
+                    {imgVal !== "" ? (
+                      <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                          dispatch(
+                            dataProduct({
+                              type: "brandPur",
+                              val: `${imgVal}`,
+                            })
+                          );
+                          dispatch(
+                            dataProduct({
+                              type: "starPur",
+                              val: Number(nums),
+                            })
+                          );
+                          setval(2);
+                        }}
+                      >
+                        <Text style={styles.submit}>Next</Text>
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity style={styles.button2}>
+                        <Text style={styles.submit2}>Next</Text>
+                      </TouchableOpacity>
+                    )}
                   </View>
                 </View>
               </Center>
@@ -670,6 +676,16 @@ const styles = StyleSheet.create({
   },
   submit: {
     color: "white",
+    fontSize: 20,
+    textAlign: "center",
+    paddingVertical: 10,
+  },
+  button2: {
+    backgroundColor: "#80808070",
+    width: 100,
+  },
+  submit2: {
+    color: "gray",
     fontSize: 20,
     textAlign: "center",
     paddingVertical: 10,
