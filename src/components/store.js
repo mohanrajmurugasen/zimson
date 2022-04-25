@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import Ban from "../../assets/2.png";
@@ -16,8 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { dataProduct } from "../../redux/action/action";
 
 const Store = ({ navigation }) => {
-  const [value, setValue] = useState("Male");
-  const [value1, setValue1] = useState("Under 25");
+  const [value, setValue] = useState("");
+  const [value1, setValue1] = useState("");
   const [name, setname] = useState("");
   const [phone, setphone] = useState("");
   const [email, setemail] = useState("");
@@ -125,129 +126,133 @@ const Store = ({ navigation }) => {
           <Image source={Ban} style={styles.img} />
         </View>
         <View style={styles.sec}>
-          <Center>
-            <Text style={styles.detail}>
-              Please Enter the Below Information To Continue
-            </Text>
-            <View style={{ width: "60%" }}>
-              <TextInput
-                style={styles.input}
-                placeholder="Name"
-                value={name}
-                onChangeText={(txt) => setname(txt)}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Phone Number"
-                value={phone}
-                onChangeText={(txt) => setphone(txt)}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Email Id"
-                value={email}
-                onChangeText={(txt) => setemail(txt)}
-              />
-            </View>
-            <View style={styles.hole}>
-              <Radio.Group
-                name="myRadioGroup"
-                accessibilityLabel="favorite number"
-                value={value}
-                onChange={(nextValue) => {
-                  setValue(nextValue);
-                }}
-              >
-                <View style={{ flexDirection: "row" }}>
-                  <Text style={styles.gender}>Gender</Text>
-                  <View style={{ marginRight: 40 }}>
-                    <Radio value="Male" my={1}>
-                      <Text style={styles.radioText}>Male</Text>
-                    </Radio>
+          <ScrollView>
+            <Center>
+              <Text style={styles.detail}>
+                Please Enter the Below Information To Continue
+              </Text>
+              <View style={{ width: "60%" }}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Name"
+                  value={name}
+                  onChangeText={(txt) => setname(txt)}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Phone Number"
+                  value={phone}
+                  onChangeText={(txt) => setphone(txt)}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Email Id"
+                  value={email}
+                  onChangeText={(txt) => setemail(txt)}
+                />
+              </View>
+              <View style={styles.hole}>
+                <Radio.Group
+                  name="myRadioGroup"
+                  accessibilityLabel="favorite number"
+                  value={value}
+                  onChange={(nextValue) => {
+                    setValue(nextValue);
+                  }}
+                >
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.gender}>Gender</Text>
+                    <View style={{ marginRight: 40 }}>
+                      <Radio value="Male" my={1}>
+                        <Text style={styles.radioText}>Male</Text>
+                      </Radio>
+                    </View>
+                    <View>
+                      <Radio value="Female" my={1}>
+                        <Text style={styles.radioText}>Female</Text>
+                      </Radio>
+                    </View>
                   </View>
-                  <View>
-                    <Radio value="Female" my={1}>
-                      <Text style={styles.radioText}>Female</Text>
-                    </Radio>
+                </Radio.Group>
+              </View>
+              <View style={styles.hole1}>
+                <Radio.Group
+                  name="myRadioGroup"
+                  accessibilityLabel="favorite number"
+                  value={value1}
+                  onChange={(nextValue) => {
+                    setValue1(nextValue);
+                  }}
+                >
+                  <View style={{ flexDirection: "row", marginBottom: 20 }}>
+                    <Text style={styles.gender}>Age Group</Text>
+                    <View style={{ marginRight: 40 }}>
+                      <Radio value="Under 25" my={1}>
+                        <Text style={styles.radioText}>Under 25</Text>
+                      </Radio>
+                    </View>
+                    <View>
+                      <Radio value="25 - 34" my={1}>
+                        <Text style={styles.radioText}>25 - 34</Text>
+                      </Radio>
+                    </View>
                   </View>
-                </View>
-              </Radio.Group>
-            </View>
-            <View style={styles.hole1}>
-              <Radio.Group
-                name="myRadioGroup"
-                accessibilityLabel="favorite number"
-                value={value1}
-                onChange={(nextValue) => {
-                  setValue1(nextValue);
-                }}
-              >
-                <View style={{ flexDirection: "row", marginBottom: 20 }}>
-                  <Text style={styles.gender}>Age Group</Text>
-                  <View style={{ marginRight: 40 }}>
-                    <Radio value="Under 25" my={1}>
-                      <Text style={styles.radioText}>Under 25</Text>
-                    </Radio>
+                  <View style={{ flexDirection: "row" }}>
+                    <View style={{ marginRight: 40 }}>
+                      <Radio value="35 - 44" my={1}>
+                        <Text style={styles.radioText}>35 - 44</Text>
+                      </Radio>
+                    </View>
+                    <View style={{ marginRight: 40 }}>
+                      <Radio value="45 - 54" my={1}>
+                        <Text style={styles.radioText}>45 - 54</Text>
+                      </Radio>
+                    </View>
+                    <View>
+                      <Radio value="55 and above" my={1}>
+                        <Text style={styles.radioText}>55 and above</Text>
+                      </Radio>
+                    </View>
                   </View>
-                  <View>
-                    <Radio value="25 - 34" my={1}>
-                      <Text style={styles.radioText}>25 - 34</Text>
-                    </Radio>
-                  </View>
-                </View>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ marginRight: 40 }}>
-                    <Radio value="35 - 44" my={1}>
-                      <Text style={styles.radioText}>35 - 44</Text>
-                    </Radio>
-                  </View>
-                  <View style={{ marginRight: 40 }}>
-                    <Radio value="45 - 54" my={1}>
-                      <Text style={styles.radioText}>45 - 54</Text>
-                    </Radio>
-                  </View>
-                  <View>
-                    <Radio value="55 and above" my={1}>
-                      <Text style={styles.radioText}>55 and above</Text>
-                    </Radio>
-                  </View>
-                </View>
-              </Radio.Group>
-            </View>
-            <View style={{ flexDirection: "row", width: "60%" }}>
-              <TouchableOpacity
-                style={styles.input2}
-                placeholder="Birthday"
-                onPress={showDatepicker}
-              >
-                <Text style={styles.birth}>
-                  {dummy ? bday.toString() : "Birthday"}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.input2}
-                placeholder="Birthday"
-                onPress={showDatepicker1}
-              >
-                <Text style={styles.birth}>
-                  {dummy1 ? ani.toString() : "Anniversary"}
-                </Text>
-              </TouchableOpacity>
-              {name !== "" &&
-              phone !== "" &&
-              email !== "" &&
-              dummy &&
-              dummy1 ? (
-                <TouchableOpacity style={styles.button} onPress={submit}>
-                  <Text style={styles.submit}>Submit</Text>
+                </Radio.Group>
+              </View>
+              <View style={{ flexDirection: "row", width: "60%" }}>
+                <TouchableOpacity
+                  style={styles.input2}
+                  placeholder="Birthday"
+                  onPress={showDatepicker}
+                >
+                  <Text style={styles.birth}>
+                    {dummy ? bday.toString() : "Birthday"}
+                  </Text>
                 </TouchableOpacity>
-              ) : (
-                <TouchableOpacity style={styles.button2}>
-                  <Text style={styles.submit2}>Submit</Text>
+                <TouchableOpacity
+                  style={styles.input2}
+                  placeholder="Birthday"
+                  onPress={showDatepicker1}
+                >
+                  <Text style={styles.birth}>
+                    {dummy1 ? ani.toString() : "Anniversary"}
+                  </Text>
                 </TouchableOpacity>
-              )}
-            </View>
-          </Center>
+                {name !== "" &&
+                phone !== "" &&
+                email !== "" &&
+                dummy &&
+                dummy1 &&
+                value !== "" &&
+                value1 !== "" ? (
+                  <TouchableOpacity style={styles.button} onPress={submit}>
+                    <Text style={styles.submit}>Submit</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity style={styles.button2}>
+                    <Text style={styles.submit2}>Submit</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </Center>
+          </ScrollView>
         </View>
       </View>
       {show && (

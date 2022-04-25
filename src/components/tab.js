@@ -60,18 +60,18 @@ const Tabs = ({ navigation }) => {
     { val: fiftin, num: "Longines" },
   ];
   const [val, setval] = useState(1);
-  const [value, setValue] = useState("Store Team was Excellent");
-  const [value1, setValue1] = useState("1");
-  const [value2, setValue2] = useState("Store team not friendly");
-  const [value3, setValue3] = useState("1");
+  const [value, setValue] = useState("");
+  const [value1, setValue1] = useState("");
+  const [value2, setValue2] = useState("");
+  const [value3, setValue3] = useState("");
   const fam = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const [showModal, setShowModal] = useState(false);
-  const [nonpur, setnonpur] = useState("Below 5k");
+  const [nonpur, setnonpur] = useState("");
   const [count, setcount] = useState(1);
   const [imgVal, setimgVal] = useState("");
   const [nums, setnums] = useState(0);
   const [star, setstar] = useState({
-    one: true,
+    one: false,
     two: false,
     three: false,
     four: false,
@@ -110,6 +110,8 @@ const Tabs = ({ navigation }) => {
       })
       .catch((err) => console.error(err.message));
   };
+
+  console.log(nums);
   return (
     <View>
       <View style={styles.ban}>
@@ -304,7 +306,7 @@ const Tabs = ({ navigation }) => {
                   </View>
                   <View style={styles.last}>
                     <View></View>
-                    {imgVal !== "" ? (
+                    {imgVal !== "" && nums !== 0 ? (
                       <TouchableOpacity
                         style={styles.button}
                         onPress={() => {
@@ -425,26 +427,32 @@ const Tabs = ({ navigation }) => {
                   </Center>
                   <View style={styles.last}>
                     <View></View>
-                    <TouchableOpacity
-                      style={styles.button}
-                      onPress={() => {
-                        dispatch(
-                          dataProduct({
-                            type: "reasonPur",
-                            val: `${value}`,
-                          })
-                        );
-                        dispatch(
-                          dataProduct({
-                            type: "familyPur",
-                            val: Number(value1),
-                          })
-                        );
-                        setval(3);
-                      }}
-                    >
-                      <Text style={styles.submit}>Next</Text>
-                    </TouchableOpacity>
+                    {value !== "" && value1 !== "" ? (
+                      <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                          dispatch(
+                            dataProduct({
+                              type: "reasonPur",
+                              val: `${value}`,
+                            })
+                          );
+                          dispatch(
+                            dataProduct({
+                              type: "familyPur",
+                              val: Number(value1),
+                            })
+                          );
+                          setval(3);
+                        }}
+                      >
+                        <Text style={styles.submit}>Next</Text>
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity style={styles.button2}>
+                        <Text style={styles.submit2}>Next</Text>
+                      </TouchableOpacity>
+                    )}
                   </View>
                 </View>
               </Center>
@@ -533,9 +541,15 @@ const Tabs = ({ navigation }) => {
                   </View>
                   <View style={styles.last}>
                     <View></View>
-                    <TouchableOpacity style={styles.button} onPress={submits}>
-                      <Text style={styles.submit}>Submit</Text>
-                    </TouchableOpacity>
+                    {value2 !== "" && value3 !== "" ? (
+                      <TouchableOpacity style={styles.button} onPress={submits}>
+                        <Text style={styles.submit}>Submit</Text>
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity style={styles.button2}>
+                        <Text style={styles.submit2}>Submit</Text>
+                      </TouchableOpacity>
+                    )}
                   </View>
                 </View>
               </Center>

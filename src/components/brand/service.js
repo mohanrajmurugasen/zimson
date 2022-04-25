@@ -20,16 +20,16 @@ const Service = ({ setShowModal, setcount, count }) => {
   const navigation = useNavigation();
 
   const [values, setValues] = useState("");
-  const [value1, setValue1] = useState("0");
+  const [value1, setValue1] = useState("");
   const [emoj, setemoj] = useState({
     one: "",
     two: "",
     three: "",
   });
   const [emojCol, setemojCol] = useState({
-    one: 0,
-    two: 0,
-    three: 0,
+    one: 6,
+    two: 6,
+    three: 6,
   });
   const fam = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const emo = [
@@ -352,12 +352,18 @@ const Service = ({ setShowModal, setcount, count }) => {
             </Center>
             <View style={styles.flex1}>
               <View></View>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => setcount(3)}
-              >
-                <Text style={styles.submit}>Next</Text>
-              </TouchableOpacity>
+              {value1 !== "" ? (
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => setcount(3)}
+                >
+                  <Text style={styles.submit}>Next</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity style={styles.button2}>
+                  <Text style={styles.submit2}>Next</Text>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         ) : (
@@ -441,9 +447,20 @@ const Service = ({ setShowModal, setcount, count }) => {
                 </View>
                 <View style={styles.flex1}>
                   <View></View>
-                  <TouchableOpacity style={styles.button} onPress={submitings}>
-                    <Text style={styles.submit}>Submit</Text>
-                  </TouchableOpacity>
+                  {emojCol.one !== 6 &&
+                  emojCol.two !== 6 &&
+                  emojCol.three !== 6 ? (
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={submitings}
+                    >
+                      <Text style={styles.submit}>Submit</Text>
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity style={styles.button2}>
+                      <Text style={styles.submit2}>Submit</Text>
+                    </TouchableOpacity>
+                  )}
                 </View>
               </View>
             </Center>

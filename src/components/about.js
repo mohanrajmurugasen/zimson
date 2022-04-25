@@ -15,30 +15,35 @@ import { useDispatch, useSelector } from "react-redux";
 import { dataProduct } from "../../redux/action/action";
 
 const About = ({ navigation }) => {
-  const [value, setValue] = useState("Digital Media");
+  const [value, setValue] = useState("");
   const [other, setother] = useState("");
 
   const dispatch = useDispatch();
   // const dem = useSelector((state) => state.addData.data);
 
   const submit = async () => {
-    if (value === "Others") {
-      dispatch(
-        dataProduct({
-          type: "about",
-          val: `${other}`,
-        })
-      );
+    if (value !== "") {
+      if (value === "Others") {
+        dispatch(
+          dataProduct({
+            type: "about",
+            val: `${other}`,
+          })
+        );
+      } else {
+        dispatch(
+          dataProduct({
+            type: "about",
+            val: `${value}`,
+          })
+        );
+      }
+
+      navigation.navigate("tabs");
     } else {
-      dispatch(
-        dataProduct({
-          type: "about",
-          val: `${value}`,
-        })
-      );
+      alert("Please choose atleast one field");
     }
 
-    navigation.navigate("tabs");
     // await authaxios.post('').then(res => {
     //   console.log(res.data)
     // }).catch(err => console.error(err.message))

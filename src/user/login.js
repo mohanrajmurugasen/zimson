@@ -69,7 +69,7 @@ const Login = ({ navigation }) => {
                 value={value}
                 onChangeText={(txt) => setvalue(txt)}
               />
-              {value !== "" ? (
+              {value !== "" && service !== "" ? (
                 <TouchableOpacity style={styles.button} onPress={submit}>
                   <Text style={styles.submit}>Submit</Text>
                 </TouchableOpacity>
