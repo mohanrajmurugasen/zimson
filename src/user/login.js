@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import Ban from "../../assets/zimson1.png";
 import {
@@ -18,10 +11,11 @@ import {
   ChevronUpIcon,
 } from "native-base";
 import authaxios from "../../interceptors/authaxios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { dataProduct } from "../../redux/action/action";
 import PhoneInput from "react-native-phone-number-input";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
+import axios from "axios";
 
 const Login = ({ navigation }) => {
   let [service, setService] = useState("");
@@ -31,7 +25,7 @@ const Login = ({ navigation }) => {
   const [code, setCode] = useState("");
   let [location, setlocation] = useState([]);
   const dispatch = useDispatch();
-  // const dem = useSelector((state) => state.addData.data);
+  const [random, setrandom] = React.useState(null);
 
   const phoneInput = useRef(null);
 
@@ -43,6 +37,29 @@ const Login = ({ navigation }) => {
       })
       .catch((err) => console.error(err.message));
   }, []);
+
+  const otps = () => {
+    let min = 1000;
+    let max = 9999;
+    let rand = min + Math.random() * (max - min);
+    setrandom(Math.floor(rand));
+
+    setchange(true);
+    axios
+      .post(
+        `https://beyondmobile.org/api/otp.php?authkey=374188As7FNNiJb62284f0dP1&mobile=91${value}&message=Dear customer Use OTP ${Math.floor(
+          rand
+        )} to login to Lakshmi jewellery customer portal.&sender=LJPSMS&otp=${Math.floor(
+          rand
+        )}&DLT_TE_ID=1707164681574855347`
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error("err.message");
+      });
+  };
 
   const submit = async () => {
     dispatch(
@@ -57,7 +74,11 @@ const Login = ({ navigation }) => {
         val: `${service}`,
       })
     );
-    navigation.navigate("store");
+    if (Number(random) === Number(code)) {
+      navigation.navigate("store");
+    } else {
+      alert("Enter Valid OTP");
+    }
   };
 
   return (
@@ -90,10 +111,7 @@ const Login = ({ navigation }) => {
                 />
               </View>
               {value !== "" && service !== "" ? (
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => setchange(true)}
-                >
+                <TouchableOpacity style={styles.button} onPress={otps}>
                   <Text style={styles.submit}>Next</Text>
                 </TouchableOpacity>
               ) : (
@@ -106,24 +124,22 @@ const Login = ({ navigation }) => {
         </View>
       ) : (
         <View style={styles.sec}>
-          <Text style={styles.detail}>Verify OTP</Text>
+          <Text style={styles.details}>Verify OTP</Text>
           <NativeBaseProvider>
             <Center>
               <View style={styles.flex}>
                 <OTPInputView
-                  style={{ width: "80%", height: 200 }}
+                  style={{ width: "40%", height: 150, paddingBottom: 50 }}
                   pinCount={4}
-                  // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
-                  // onCodeChanged = {code => { this.setState({code})}}
                   autoFocusOnLoad
                   codeInputFieldStyle={styles.underlineStyleBase}
                   codeInputHighlightStyle={styles.underlineStyleHighLighted}
                   onCodeFilled={(code) => {
-                    console.log(`Code is ${code}, you are good to go!`);
+                    setCode(code);
                   }}
                 />
               </View>
-              {value !== "" && service !== "" ? (
+              {code.length === 4 ? (
                 <TouchableOpacity style={styles.button} onPress={submit}>
                   <Text style={styles.submit}>Submit</Text>
                 </TouchableOpacity>
@@ -186,7 +202,6 @@ const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   borderStyleBase: {
     width: 30,
-    height: 45,
   },
 
   borderStyleHighLighted: {
@@ -194,10 +209,12 @@ const styles = StyleSheet.create({
   },
 
   underlineStyleBase: {
-    width: 30,
-    height: 45,
-    borderWidth: 0,
-    borderBottomWidth: 1,
+    width: 60,
+    height: 60,
+    borderWidth: 1,
+    borderColor: "gray",
+    color: "black",
+    fontSize: 22,
   },
 
   underlineStyleHighLighted: {
@@ -234,6 +251,11 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: "center",
     paddingBottom: 50,
+  },
+  details: {
+    fontSize: 25,
+    textAlign: "center",
+    paddingBottom: 40,
   },
   flex: {
     flexDirection: "row",
