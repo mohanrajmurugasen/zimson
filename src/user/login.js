@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Ban from "../../assets/zimson1.png";
 import {
   Center,
@@ -20,13 +20,20 @@ import {
 import authaxios from "../../interceptors/authaxios";
 import { useDispatch, useSelector } from "react-redux";
 import { dataProduct } from "../../redux/action/action";
+import PhoneInput from "react-native-phone-number-input";
+import OTPInputView from "@twotalltotems/react-native-otp-input";
 
 const Login = ({ navigation }) => {
   let [service, setService] = useState("");
-  let [value, setvalue] = useState("");
+  let [value, setValue] = useState("");
+  const [formattedValue, setFormattedValue] = useState("");
+  const [change, setchange] = useState(false);
+  const [code, setCode] = useState("");
   let [location, setlocation] = useState([]);
   const dispatch = useDispatch();
   // const dem = useSelector((state) => state.addData.data);
+
+  const phoneInput = useRef(null);
 
   useEffect(() => {
     authaxios
@@ -58,17 +65,64 @@ const Login = ({ navigation }) => {
       <View style={styles.ban}>
         <Image source={Ban} style={styles.img} />
       </View>
-      <View style={styles.sec}>
-        <Text style={styles.detail}>Enter Your Details</Text>
-        <NativeBaseProvider>
-          <Center>
-            <View style={styles.flex}>
-              <TextInput
-                style={styles.input}
-                placeholder="Email or Mobile Number"
-                value={value}
-                onChangeText={(txt) => setvalue(txt)}
-              />
+      {!change ? (
+        <View style={styles.sec}>
+          <Text style={styles.detail}>Enter Mobile Number</Text>
+          <NativeBaseProvider>
+            <Center>
+              <View style={styles.flex}>
+                <PhoneInput
+                  ref={phoneInput}
+                  defaultValue={value}
+                  defaultCode="IN"
+                  layout="first"
+                  onChangeText={(text) => {
+                    setValue(text);
+                  }}
+                  onChangeFormattedText={(text) => {
+                    setFormattedValue(text);
+                  }}
+                  withDarkTheme
+                  withShadow
+                  autoFocus
+                  containerStyle={styles.phoneContainer}
+                  textContainerStyle={styles.textInput}
+                />
+              </View>
+              {value !== "" && service !== "" ? (
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => setchange(true)}
+                >
+                  <Text style={styles.submit}>Next</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity style={styles.button2}>
+                  <Text style={styles.submit2}>Next</Text>
+                </TouchableOpacity>
+              )}
+            </Center>
+          </NativeBaseProvider>
+        </View>
+      ) : (
+        <View style={styles.sec}>
+          <Text style={styles.detail}>Verify OTP</Text>
+          <NativeBaseProvider>
+            <Center>
+              <View style={styles.flex}>
+                <OTPInputView
+                  style={{ width: "80%", height: 200 }}
+                  pinCount={4}
+                  // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
+                  // onCodeChanged = {code => { this.setState({code})}}
+                  autoFocusOnLoad
+                  codeInputFieldStyle={styles.underlineStyleBase}
+                  codeInputHighlightStyle={styles.underlineStyleHighLighted}
+                  onCodeFilled={(code) => {
+                    console.log(`Code is ${code}, you are good to go!`);
+                  }}
+                />
+              </View>
               {value !== "" && service !== "" ? (
                 <TouchableOpacity style={styles.button} onPress={submit}>
                   <Text style={styles.submit}>Submit</Text>
@@ -78,10 +132,10 @@ const Login = ({ navigation }) => {
                   <Text style={styles.submit2}>Submit</Text>
                 </TouchableOpacity>
               )}
-            </View>
-          </Center>
-        </NativeBaseProvider>
-      </View>
+            </Center>
+          </NativeBaseProvider>
+        </View>
+      )}
       <View style={styles.foot}>
         <View style={{ width: 330 }}>
           <NativeBaseProvider>
@@ -130,6 +184,33 @@ const Login = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  borderStyleBase: {
+    width: 30,
+    height: 45,
+  },
+
+  borderStyleHighLighted: {
+    borderColor: "#03DAC6",
+  },
+
+  underlineStyleBase: {
+    width: 30,
+    height: 45,
+    borderWidth: 0,
+    borderBottomWidth: 1,
+  },
+
+  underlineStyleHighLighted: {
+    borderColor: "#03DAC6",
+  },
+  phoneContainer: {
+    width: "65%",
+    height: 60,
+    marginBottom: 50,
+  },
+  textInput: {
+    paddingVertical: 0,
+  },
   ban: {
     width: "100%",
     height: "50%",
@@ -141,7 +222,7 @@ const styles = StyleSheet.create({
   sec: {
     height: "42%",
     backgroundColor: "white",
-    paddingTop: 170,
+    paddingTop: 130,
   },
   foot: {
     height: "8%",
@@ -152,7 +233,7 @@ const styles = StyleSheet.create({
   detail: {
     fontSize: 25,
     textAlign: "center",
-    paddingBottom: 70,
+    paddingBottom: 50,
   },
   flex: {
     flexDirection: "row",
