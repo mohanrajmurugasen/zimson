@@ -1,4 +1,11 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import Ban from "../../assets/zimson1.png";
 import {
@@ -76,6 +83,8 @@ const Login = ({ navigation }) => {
     );
     if (Number(random) === Number(code)) {
       navigation.navigate("store");
+      setchange(false);
+      setCode("");
     } else {
       alert("Enter Valid OTP");
     }
@@ -128,26 +137,31 @@ const Login = ({ navigation }) => {
           <NativeBaseProvider>
             <Center>
               <View style={styles.flex}>
-                <OTPInputView
-                  style={{ width: "40%", height: 150, paddingBottom: 50 }}
-                  pinCount={4}
-                  autoFocusOnLoad
-                  codeInputFieldStyle={styles.underlineStyleBase}
-                  codeInputHighlightStyle={styles.underlineStyleHighLighted}
-                  onCodeFilled={(code) => {
-                    setCode(code);
+                {[0, 1, 2, 3].map((itm) => (
+                  <View key={itm} style={styles.otpes}>
+                    <Text style={styles.otpText}>{code.charAt(itm)}</Text>
+                  </View>
+                ))}
+                <TextInput
+                  style={styles.inputing}
+                  value={code}
+                  onChangeText={(txt) => {
+                    setCode(txt);
                   }}
+                  maxLength={4}
                 />
               </View>
-              {code.length === 4 ? (
-                <TouchableOpacity style={styles.button} onPress={submit}>
-                  <Text style={styles.submit}>Submit</Text>
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity style={styles.button2}>
-                  <Text style={styles.submit2}>Submit</Text>
-                </TouchableOpacity>
-              )}
+              <View style={{ marginTop: 40 }}>
+                {code.length === 4 ? (
+                  <TouchableOpacity style={styles.button} onPress={submit}>
+                    <Text style={styles.submit}>submit</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity style={styles.button2}>
+                    <Text style={styles.submit2}>submit</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
             </Center>
           </NativeBaseProvider>
         </View>
@@ -203,7 +217,42 @@ const styles = StyleSheet.create({
   borderStyleBase: {
     width: 30,
   },
-
+  otpes: {
+    width: 60,
+    height: 60,
+    borderWidth: 2,
+    borderColor: "gray",
+    margin: 20,
+    paddingTop: 15,
+    paddingLeft: 25,
+    borderRadius: 6,
+  },
+  otpText: {
+    fontSize: 18,
+  },
+  inputing: {
+    width: "40%",
+    borderBottomColor: "gray",
+    borderBottomWidth: 1,
+    fontSize: 20,
+    paddingBottom: 10,
+    position: "absolute",
+    marginTop: 35,
+    marginLeft: 40,
+    letterSpacing: 90,
+    opacity: 0,
+  },
+  input: {
+    width: "40%",
+    borderBottomColor: "gray",
+    borderBottomWidth: 1,
+    fontSize: 20,
+    paddingBottom: 10,
+    position: "absolute",
+    marginTop: 35,
+    marginLeft: 40,
+    letterSpacing: 90,
+  },
   borderStyleHighLighted: {
     borderColor: "#03DAC6",
   },
@@ -260,14 +309,7 @@ const styles = StyleSheet.create({
   flex: {
     flexDirection: "row",
   },
-  input: {
-    width: "40%",
-    borderBottomColor: "gray",
-    borderBottomWidth: 1,
-    marginRight: 10,
-    fontSize: 20,
-    paddingBottom: 10,
-  },
+
   button: {
     backgroundColor: "black",
   },

@@ -104,13 +104,13 @@ const Store = ({ navigation }) => {
     dispatch(
       dataProduct({
         type: "birthday",
-        val: bday.toString(),
+        val: dummy ? bday.toString() : "NA",
       })
     );
     dispatch(
       dataProduct({
         type: "anniversary",
-        val: ani.toString(),
+        val: dummy1 ? ani.toString() : "NA",
       })
     );
     navigation.navigate("about");
