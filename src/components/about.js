@@ -10,8 +10,7 @@ import {
 import React, { useState } from "react";
 import Ban from "../../assets/3.png";
 import { Center, NativeBaseProvider, Radio } from "native-base";
-import authaxios from "../../interceptors/authaxios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { dataProduct } from "../../redux/action/action";
 
 const About = ({ navigation }) => {
@@ -19,7 +18,6 @@ const About = ({ navigation }) => {
   const [other, setother] = useState("");
 
   const dispatch = useDispatch();
-  // const dem = useSelector((state) => state.addData.data);
 
   const submit = async () => {
     if (value !== "") {
@@ -43,10 +41,6 @@ const About = ({ navigation }) => {
     } else {
       alert("Please choose atleast one field");
     }
-
-    // await authaxios.post('').then(res => {
-    //   console.log(res.data)
-    // }).catch(err => console.error(err.message))
   };
   return (
     <View>

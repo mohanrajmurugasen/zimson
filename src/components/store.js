@@ -12,8 +12,7 @@ import Ban from "../../assets/2.png";
 import { Center, NativeBaseProvider, Radio } from "native-base";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
-import authaxios from "../../interceptors/authaxios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { dataProduct } from "../../redux/action/action";
 
 const Store = ({ navigation }) => {
@@ -114,9 +113,6 @@ const Store = ({ navigation }) => {
       })
     );
     navigation.navigate("about");
-    // await authaxios.post('').then(res => {
-    //   console.log(res.data)
-    // }).catch(err => console.error(err.message))
   };
 
   return (
@@ -142,12 +138,14 @@ const Store = ({ navigation }) => {
                   style={styles.input}
                   placeholder="Phone Number"
                   value={phone}
+                  keyboardType="numeric"
                   onChangeText={(txt) => setphone(txt)}
                 />
                 <TextInput
                   style={styles.input}
                   placeholder="Email Id"
                   value={email}
+                  keyboardType="email-address"
                   onChangeText={(txt) => setemail(txt)}
                 />
               </View>

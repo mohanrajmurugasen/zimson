@@ -71,7 +71,6 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
       .catch((err) => console.error(err.message));
   };
 
-  console.log(nonpur);
   return (
     <NativeBaseProvider>
       <Center>

@@ -21,7 +21,6 @@ import authaxios from "../../interceptors/authaxios";
 import { useDispatch } from "react-redux";
 import { dataProduct } from "../../redux/action/action";
 import PhoneInput from "react-native-phone-number-input";
-import OTPInputView from "@twotalltotems/react-native-otp-input";
 import axios from "axios";
 
 const Login = ({ navigation }) => {
@@ -85,6 +84,7 @@ const Login = ({ navigation }) => {
       navigation.navigate("store");
       setchange(false);
       setCode("");
+      setValue("");
     } else {
       alert("Enter Valid OTP");
     }
@@ -149,6 +149,7 @@ const Login = ({ navigation }) => {
                     setCode(txt);
                   }}
                   maxLength={4}
+                  keyboardType="numeric"
                 />
               </View>
               <View style={{ marginTop: 40 }}>
@@ -271,7 +272,7 @@ const styles = StyleSheet.create({
   },
   phoneContainer: {
     width: "65%",
-    height: 60,
+    height: 70,
     marginBottom: 50,
   },
   textInput: {

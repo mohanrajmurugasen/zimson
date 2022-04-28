@@ -7,7 +7,6 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { Center, NativeBaseProvider, Radio } from "native-base";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";

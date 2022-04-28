@@ -3,11 +3,10 @@ import {
   Text,
   Image,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Ban from "../../assets/5.png";
 import Ban2 from "../../assets/6.png";
 import Ban3 from "../../assets/7.png";
@@ -39,7 +38,6 @@ import authaxios from "../../interceptors/authaxios";
 const Tabs = ({ navigation }) => {
   const dispatch = useDispatch();
   const dem = useSelector((state) => state.addData.data);
-  // console.log(dem);
 
   const [tab, settab] = useState(1);
   const imgs = [
@@ -111,7 +109,6 @@ const Tabs = ({ navigation }) => {
       .catch((err) => console.error(err.message));
   };
 
-  console.log(nums);
   return (
     <View>
       <View style={styles.ban}>

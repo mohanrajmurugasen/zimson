@@ -1,6 +1,0 @@
-<TextInput
-                style={styles.input}
-                placeholder="Email or Mobile Number"
-                value={value}
-                onChangeText={(txt) => setvalue(txt)}
-              />
