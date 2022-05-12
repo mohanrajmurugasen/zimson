@@ -12,22 +12,15 @@ import Ban2 from "../../assets/6.png";
 import Ban3 from "../../assets/7.png";
 import Ban4 from "../../assets/9.png";
 import Ban5 from "../../assets/10.png";
-import one from "../../assets/img/1.png";
-import two from "../../assets/img/2.png";
-import three from "../../assets/img/3.png";
-import four from "../../assets/img/4.png";
-import five from "../../assets/img/5.png";
-import six from "../../assets/img/6.png";
-import seven from "../../assets/img/7.png";
-import eight from "../../assets/img/8.png";
-import nine from "../../assets/img/9.png";
-import ten from "../../assets/img/10.png";
-import eleven from "../../assets/img/11.png";
-import twell from "../../assets/img/12.png";
-import thertin from "../../assets/img/13.png";
-import fourtin from "../../assets/img/14.png";
-import fiftin from "../../assets/img/15.png";
-import { Center, NativeBaseProvider, Radio, Modal } from "native-base";
+import {
+  Center,
+  NativeBaseProvider,
+  Radio,
+  Modal,
+  Box,
+  Select,
+  CheckIcon,
+} from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import Nonpurchase from "./brand/nonpurchase";
 import Service from "./brand/service";
@@ -40,22 +33,32 @@ const Tabs = ({ navigation }) => {
   const dem = useSelector((state) => state.addData.data);
 
   const [tab, settab] = useState(1);
-  const imgs = [
-    { val: one, num: "Rolex" },
-    { val: two, num: "Chopard" },
-    { val: three, num: "Breitling" },
-    { val: four, num: "Gucci" },
-    { val: five, num: "Omega" },
-    { val: six, num: "Bvlgari" },
-    { val: seven, num: "Calvin klein" },
-    { val: eight, num: "Balmain" },
-    { val: nine, num: "Tagheuer" },
-    { val: ten, num: "Swatch" },
-    { val: eleven, num: "Mont blanc" },
-    { val: twell, num: "Rado" },
-    { val: thertin, num: "Hublot" },
-    { val: fourtin, num: "Sevenfriday" },
-    { val: fiftin, num: "Longines" },
+  const items = [
+    { num: "Rado" },
+    { num: "Tissot" },
+    { num: "Seiko" },
+    { num: "Casio" },
+    { num: "Fossil" },
+    { num: "Skagen" },
+    { num: "CK" },
+    { num: "Hugo Boss" },
+    { num: "Emporio Armani" },
+    { num: "Armani Xchange" },
+    { num: "Michael Cors" },
+    { num: "Alba" },
+    { num: "Titan" },
+    { num: "Timex" },
+    { num: "Sonata" },
+    { num: "Fastrack" },
+    { num: "Zoop" },
+    { num: "Wallclocks - Titan, Woodcraft, Seiko" },
+    { num: "Perfumes - Titan Skinn" },
+    { num: "Wallets - Titan, Fastrack" },
+    { num: "Swarovski" },
+    { num: "Police" },
+    { num: "Tommy" },
+    { num: "Kenneth Cole" },
+    { num: "Aspen" },
   ];
   const [val, setval] = useState(1);
   const [value, setValue] = useState("");
@@ -167,51 +170,49 @@ const Tabs = ({ navigation }) => {
                 <View
                   style={{
                     width: width - 50,
-                    marginTop: 40,
+                    marginTop: 100,
                   }}
                 >
                   <Text style={styles.select}>Select Your Brand</Text>
-                  <View style={styles.row}>
-                    {imgs.slice(0, 5).map((itm, index) => (
-                      <TouchableOpacity
-                        key={index}
-                        style={itm.num === imgVal ? styles.imgw1 : styles.imgw}
-                        onPress={() => setimgVal(itm.num)}
+                  <View
+                    style={{
+                      borderWidth: 2,
+                      borderColor: "#00c8cb",
+                      width: "100%",
+                      borderRadius: 6,
+                      marginVertical: 20,
+                    }}
+                  >
+                    <Box style={{ width: "100%" }}>
+                      <Select
+                        selectedValue={imgVal}
+                        minWidth="200"
+                        accessibilityLabel="Choose Service"
+                        placeholder="Choose Service"
+                        _selectedItem={{
+                          bg: "teal.600",
+                          endIcon: <CheckIcon size="5" />,
+                        }}
+                        mt={1}
+                        style={{
+                          fontSize: 25,
+                          height: 70,
+                          paddingLeft: 25,
+                          paddingBottom: 18,
+                          letterSpacing: 1,
+                        }}
+                        onValueChange={(itemValue) => setimgVal(itemValue)}
                       >
-                        <Image
-                          source={itm.val}
-                          style={{ width: (width - 55) / 5 }}
-                        />
-                      </TouchableOpacity>
-                    ))}
-                  </View>
-                  <View style={styles.row}>
-                    {imgs.slice(5, 10).map((itm, index) => (
-                      <TouchableOpacity
-                        key={index}
-                        onPress={() => setimgVal(itm.num)}
-                        style={itm.num === imgVal ? styles.imgw1 : styles.imgw}
-                      >
-                        <Image
-                          source={itm.val}
-                          style={{ width: (width - 55) / 5 }}
-                        />
-                      </TouchableOpacity>
-                    ))}
-                  </View>
-                  <View style={styles.row}>
-                    {imgs.slice(10, 15).map((itm, index) => (
-                      <TouchableOpacity
-                        key={index}
-                        onPress={() => setimgVal(itm.num)}
-                        style={itm.num === imgVal ? styles.imgw1 : styles.imgw}
-                      >
-                        <Image
-                          source={itm.val}
-                          style={{ width: (width - 55) / 5 }}
-                        />
-                      </TouchableOpacity>
-                    ))}
+                        {items.map((itm, index) => (
+                          <Select.Item
+                            key={index}
+                            label={itm.num}
+                            value={itm.num}
+                            style={{ fontSize: 20 }}
+                          />
+                        ))}
+                      </Select>
+                    </Box>
                   </View>
                   <Text style={styles.exp}>Rate Your Experience</Text>
                   <View style={styles.star}>
