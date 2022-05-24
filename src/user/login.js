@@ -53,11 +53,11 @@ const Login = ({ navigation }) => {
     setchange(true);
     axios
       .post(
-        `https://beyondmobile.org/api/otp.php?authkey=374188As7FNNiJb62284f0dP1&mobile=91${value}&message=Dear customer Use OTP ${Math.floor(
+        `https://beyondmobile.org/api/otp.php?authkey=377381AOgW9EHsVm1628b75a2P1&mobile=91${value}&message= Thank you for visiting. Your OTP ${Math.floor(
           rand
-        )} to login to Lakshmi jewellery customer portal.&sender=LJPSMS&otp=${Math.floor(
+        )} Looking Forward to your Visit Again ZIMSON&sender=ZIMSON&otp=${Math.floor(
           rand
-        )}&DLT_TE_ID=1707164681574855347`
+        )}&DLT_TE_ID=1707165216966483748`
       )
       .then((res) => {
         console.log(res);
