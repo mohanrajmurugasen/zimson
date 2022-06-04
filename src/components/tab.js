@@ -173,7 +173,7 @@ const Tabs = ({ navigation }) => {
                     marginTop: 100,
                   }}
                 >
-                  <Text style={styles.select}>Select Your Brand</Text>
+                  <Text style={styles.select}>Select Your Brands</Text>
                   <View
                     style={{
                       borderWidth: 2,
@@ -187,8 +187,8 @@ const Tabs = ({ navigation }) => {
                       <Select
                         selectedValue={imgVal}
                         minWidth="200"
-                        accessibilityLabel="Choose Service"
-                        placeholder="Choose Service"
+                        accessibilityLabel="Brands"
+                        placeholder="Brands"
                         _selectedItem={{
                           bg: "teal.600",
                           endIcon: <CheckIcon size="5" />,
@@ -339,7 +339,7 @@ const Tabs = ({ navigation }) => {
               <Center>
                 <View style={styles.all1}>
                   <Text style={styles.select1}>
-                    What is the key reason for giving us four stars ?
+                    What is the key reason for giving us {nums} stars ?
                   </Text>
                   <Center>
                     <Radio.Group
@@ -690,7 +690,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
     textAlign: "center",
-    paddingVertical: 10,
+    paddingVertical: 20,
   },
   button2: {
     backgroundColor: "#80808070",
@@ -700,7 +700,7 @@ const styles = StyleSheet.create({
     color: "gray",
     fontSize: 20,
     textAlign: "center",
-    paddingVertical: 10,
+    paddingVertical: 20,
   },
   last: {
     flexDirection: "row",

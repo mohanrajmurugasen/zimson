@@ -283,6 +283,7 @@ const Service = ({ setShowModal, setcount, count }) => {
                 <TextInput
                   style={styles.input}
                   value={values}
+                  keyboardType="numeric"
                   onChangeText={(txt) => {
                     setValues(txt);
                     dispatch(

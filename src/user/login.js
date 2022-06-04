@@ -168,12 +168,12 @@ const Login = ({ navigation }) => {
         </View>
       )}
       <View style={styles.foot}>
-        <View style={{ width: 330 }}>
+        <View style={{ width: 300 }}>
           <NativeBaseProvider>
             <Box w="3/4" maxW="300" style={{ marginTop: 19 }}>
               <Select
                 selectedValue={service}
-                minWidth="200"
+                minWidth="300"
                 accessibilityLabel="Choose Location"
                 placeholder="Choose Location"
                 _selectedItem={{
@@ -208,7 +208,6 @@ const Login = ({ navigation }) => {
             </Box>
           </NativeBaseProvider>
         </View>
-        <Text style={styles.zimson}>Zimson since 1948</Text>
       </View>
     </View>
   );
@@ -295,7 +294,7 @@ const styles = StyleSheet.create({
     height: "8%",
     backgroundColor: "#e84a49",
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
   },
   detail: {
     fontSize: 25,

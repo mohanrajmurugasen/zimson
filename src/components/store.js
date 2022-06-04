@@ -7,13 +7,14 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Ban from "../../assets/2.png";
 import { Center, NativeBaseProvider, Radio } from "native-base";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { dataProduct } from "../../redux/action/action";
+import authaxios from "../../interceptors/authaxios";
 
 const Store = ({ navigation }) => {
   const [value, setValue] = useState("");
@@ -25,7 +26,8 @@ const Store = ({ navigation }) => {
   const [dummy1, setdummy1] = useState(false);
 
   const dispatch = useDispatch();
-  // const dem = useSelector((state) => state.addData.data);
+  const phon = useSelector((state) => state.addData.data);
+  console.log(phon);
 
   const [date, setDate] = useState(new Date());
   const [date1, setDate1] = useState(new Date());
@@ -33,9 +35,30 @@ const Store = ({ navigation }) => {
   const [mode1, setMode1] = useState("date");
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
+  const [bday, setbday] = useState("");
+  const [ani, setani] = useState("");
 
-  const bday = moment(new Date(date)).format("DD/MM/YYYY");
-  const ani = moment(new Date(date1)).format("DD/MM/YYYY");
+  // const bday = moment(new Date(date)).format("DD/MM/YYYY");
+  // const ani = moment(new Date(date1)).format("DD/MM/YYYY");
+
+  useEffect(() => {
+    authaxios
+      .get("purchase")
+      .then((res) => {
+        res.data
+          .filter((nam) => nam.phone === phon.user)
+          .map((itm) => {
+            setname(itm.name);
+            setphone(itm.phone);
+            setemail(itm.email);
+            setValue(itm.gender);
+            setValue1(itm.age);
+            setbday(itm.birthday);
+            setani(itm.anniversary === "NA" ? "" : itm.anniversary);
+          });
+      })
+      .catch((err) => console.error(err.message));
+  }, []);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -103,13 +126,13 @@ const Store = ({ navigation }) => {
     dispatch(
       dataProduct({
         type: "birthday",
-        val: dummy ? bday.toString() : "NA",
+        val: bday === "" ? "NA" : bday,
       })
     );
     dispatch(
       dataProduct({
         type: "anniversary",
-        val: dummy1 ? ani.toString() : "NA",
+        val: ani === "" ? "NA" : ani,
       })
     );
     navigation.navigate("about");
@@ -127,7 +150,7 @@ const Store = ({ navigation }) => {
               <Text style={styles.detail}>
                 Please Enter the Below Information To Continue
               </Text>
-              <View style={{ width: "60%" }}>
+              <View style={{ width: "70%" }}>
                 <TextInput
                   style={styles.input}
                   placeholder="Name"
@@ -214,8 +237,32 @@ const Store = ({ navigation }) => {
                   </View>
                 </Radio.Group>
               </View>
-              <View style={{ flexDirection: "row", width: "60%" }}>
-                <TouchableOpacity
+              <View
+                style={{
+                  flexDirection: "row",
+                  width: "70%",
+                  justifyContent: "space-between",
+                }}
+              >
+                <View style={{ width: "40%" }}>
+                  <TextInput
+                    style={styles.input10}
+                    placeholder="Birthday (dd/mm/yyyy)"
+                    value={bday}
+                    onChangeText={(txt) => setbday(txt)}
+                    keyboardType="numeric"
+                  />
+                </View>
+                <View style={{ width: "40%" }}>
+                  <TextInput
+                    style={styles.input10}
+                    placeholder="Anniversary (dd/mm/yyyy)"
+                    value={ani}
+                    onChangeText={(txt) => setani(txt)}
+                    keyboardType="numeric"
+                  />
+                </View>
+                {/*<TouchableOpacity
                   style={styles.input2}
                   placeholder="Birthday"
                   onPress={showDatepicker}
@@ -232,11 +279,11 @@ const Store = ({ navigation }) => {
                   <Text style={styles.birth}>
                     {dummy1 ? ani.toString() : "Anniversary"}
                   </Text>
-                </TouchableOpacity>
+                </TouchableOpacity>*/}
                 {name !== "" &&
                 phone !== "" &&
                 email !== "" &&
-                (dummy || dummy1) &&
+                (bday !== "" || ani !== "") &&
                 value !== "" &&
                 value1 !== "" ? (
                   <TouchableOpacity style={styles.button} onPress={submit}>
@@ -302,6 +349,15 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     marginBottom: 30,
   },
+  input10: {
+    width: "100%",
+    borderBottomColor: "gray",
+    borderBottomWidth: 1,
+    marginRight: 10,
+    fontSize: 20,
+    paddingBottom: 10,
+    marginBottom: 30,
+  },
   input2: {
     width: "40%",
     borderBottomColor: "gray",
@@ -321,7 +377,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 15,
     marginBottom: 30,
-    width: "60%",
+    width: "70%",
   },
   hole1: {
     flexDirection: "row",
@@ -329,7 +385,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 15,
     marginBottom: 40,
-    width: "60%",
+    width: "70%",
   },
   gender: {
     fontSize: 23,
