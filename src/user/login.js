@@ -60,7 +60,7 @@ const Login = ({ navigation }) => {
         )}&DLT_TE_ID=1707165216966483748`
       )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
         console.error("err.message");

@@ -112,6 +112,8 @@ const Tabs = ({ navigation }) => {
       .catch((err) => console.error(err.message));
   };
 
+  console.log(nums);
+
   return (
     <View>
       <View style={styles.ban}>
@@ -320,7 +322,11 @@ const Tabs = ({ navigation }) => {
                               val: Number(nums),
                             })
                           );
-                          setval(2);
+                          if (nums <= 3) {
+                            setval(3);
+                          } else {
+                            setval(2);
+                          }
                         }}
                       >
                         <Text style={styles.submit}>Next</Text>
