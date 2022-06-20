@@ -202,8 +202,6 @@ const Tabs = ({ navigation }) => {
                   <Text style={styles.select}>Select Your Brands</Text>
                   <View
                     style={{
-                      borderWidth: 2,
-                      borderColor: "#00c8cb",
                       width: "100%",
                       borderRadius: 6,
                       marginVertical: 20,
