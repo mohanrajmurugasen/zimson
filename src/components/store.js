@@ -55,6 +55,7 @@ const Store = ({ navigation }) => {
         res.data
           .filter((nam) => nam.phone === phon.user)
           .map((itm) => {
+            console.log(itm);
             setname(itm.name);
             setphone(itm.phone);
             setemail(itm.email);
@@ -63,31 +64,9 @@ const Store = ({ navigation }) => {
             setbday(itm.birthday === "NA" ? "" : itm.birthday);
             setani(itm.anniversary === "NA" ? "" : itm.anniversary);
           });
-        setspin(false);
-      })
-      .catch((err) => {
-        setspin(false);
-        console.error(err.message);
-      });
-  }, []);
-
-  useEffect(() => {
-    authaxios
-      .get("service")
-      .then((res) => {
-        res.data
-          .filter((nam) => nam.phone === phon.user)
-          .map((itm) => {
-            name === "" && setname(itm.name);
-            phone === "" && setphone(itm.phone);
-            email === "" && setemail(itm.email);
-            value === "" && setValue(itm.gender);
-            value1 === "" && setValue1(itm.age);
-            bday === "" && setbday(itm.birthday === "NA" ? "" : itm.birthday);
-            ani === "" &&
-              setani(itm.anniversary === "NA" ? "" : itm.anniversary);
-          });
-        setspin(false);
+        setTimeout(() => {
+          setspin(false);
+        }, 2000);
       })
       .catch((err) => {
         setspin(false);

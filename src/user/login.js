@@ -65,6 +65,14 @@ const Login = ({ navigation }) => {
       .catch((err) => {
         console.error("err.message");
       });
+
+    console.log(
+      `https://beyondmobile.org/api/otp.php?authkey=377381AOgW9EHsVm1628b75a2P1&mobile=91${value}&message= Thank you for visiting. Your OTP ${Math.floor(
+        rand
+      )} Looking Forward to your Visit Again ZIMSON&sender=ZIMSON&otp=${Math.floor(
+        rand
+      )}&DLT_TE_ID=1707165216966483748`
+    );
   };
 
   const submit = async () => {
@@ -168,46 +176,52 @@ const Login = ({ navigation }) => {
         </View>
       )}
       <View style={styles.foot}>
-        <View style={{ width: 300 }}>
-          <NativeBaseProvider>
-            <Box w="3/4" maxW="300" style={{ marginTop: 19 }}>
-              <Select
-                selectedValue={service}
-                minWidth="300"
-                accessibilityLabel="Choose Location"
-                placeholder="Choose Location"
-                _selectedItem={{
-                  bg: "teal.600",
-                  endIcon: <CheckIcon size="5" />,
-                }}
-                style={{
-                  backgroundColor: "white",
-                  color: "black",
-                  height: 43,
-                  fontSize: 18,
-                  paddingLeft: 15,
-                  marginBottom: 0,
-                }}
-                dropdownOpenIcon={
-                  <View style={styles.pads}>
-                    <ChevronUpIcon size="5" style={styles.boxIcon} />
-                  </View>
-                }
-                dropdownCloseIcon={
-                  <View style={styles.pads}>
-                    <ChevronDownIcon size="5" style={styles.boxIcon} />
-                  </View>
-                }
-                mt={1}
-                onValueChange={(itemValue) => setService(itemValue)}
-              >
-                {location.map((itm) => (
-                  <Select.Item label={itm.name} value={itm.name} key={itm.id} />
-                ))}
-              </Select>
-            </Box>
-          </NativeBaseProvider>
-        </View>
+        <NativeBaseProvider>
+          <Center>
+            <View style={{ width: 300 }}>
+              <Box style={{ marginTop: 19 }}>
+                <Select
+                  selectedValue={service}
+                  minWidth="300"
+                  accessibilityLabel="Choose Location"
+                  placeholder="Choose Location"
+                  _selectedItem={{
+                    bg: "teal.600",
+                    endIcon: <CheckIcon size="5" />,
+                  }}
+                  style={{
+                    backgroundColor: "white",
+                    color: "black",
+                    height: 43,
+                    fontSize: 18,
+                    paddingLeft: 15,
+                    marginBottom: 0,
+                  }}
+                  dropdownOpenIcon={
+                    <View style={styles.pads}>
+                      <ChevronUpIcon size="5" style={styles.boxIcon} />
+                    </View>
+                  }
+                  dropdownCloseIcon={
+                    <View style={styles.pads}>
+                      <ChevronDownIcon size="5" style={styles.boxIcon} />
+                    </View>
+                  }
+                  mt={1}
+                  onValueChange={(itemValue) => setService(itemValue)}
+                >
+                  {location.map((itm) => (
+                    <Select.Item
+                      label={itm.name}
+                      value={itm.name}
+                      key={itm.id}
+                    />
+                  ))}
+                </Select>
+              </Box>
+            </View>
+          </Center>
+        </NativeBaseProvider>
       </View>
     </View>
   );

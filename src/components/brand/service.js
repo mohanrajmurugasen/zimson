@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { dataProduct } from "../../../redux/action/action";
 import authaxios from "../../../interceptors/authaxios";
+import axios from "axios";
 
 const Service = ({ setShowModal, setcount, count }) => {
   const dispatch = useDispatch();
@@ -263,6 +264,16 @@ const Service = ({ setShowModal, setcount, count }) => {
       .then((res) => {
         console.log(res.data);
         setShowModal(true);
+        axios
+          .post(
+            `https://beyondmobile.org/api/sendhttp.php?authkey=377381AOgW9EHsVm1628b75a2P1&mobiles=${dem.phone}&message=We are thrilled that you were satisfied with our services. Your feedback is appreciated, and look forward to serve you again soon. -Zimson&sender=ZIMSON&route=4&country=91&DLT_TE_ID=1707165546866781996`
+          )
+          .then((res) => {
+            // console.log(res);
+          })
+          .catch((err) => {
+            console.error("err.message");
+          });
         setTimeout(() => {
           navigation.navigate("login");
           setShowModal(false);

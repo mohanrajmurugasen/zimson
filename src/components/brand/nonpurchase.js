@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { dataProduct } from "../../../redux/action/action";
 import { useNavigation } from "@react-navigation/native";
 import authaxios from "../../../interceptors/authaxios";
+import axios from "axios";
 
 function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
   const dispatch = useDispatch();
@@ -63,6 +64,29 @@ function Nonpurchase({ setnonpur, nonpur, setShowModal }) {
       .then((res) => {
         console.log(res.data);
         setShowModal(true);
+        if (Number(num) <= 3) {
+          axios
+            .post(
+              `https://beyondmobile.org/api/sendhttp.php?authkey=377381AOgW9EHsVm1628b75a2P1&mobiles=${dem.phone}&message=We regret the inconveniences caused. We assure to work towards improving our services. Your review is important to us. - Zimson&sender=ZIMSON&route=4&country=91&DLT_TE_ID=1707165468053386658`
+            )
+            .then((res) => {
+              // console.log(res);
+            })
+            .catch((err) => {
+              console.error("err.message");
+            });
+        } else {
+          axios
+            .post(
+              `https://beyondmobile.org/api/sendhttp.php?authkey=377381AOgW9EHsVm1628b75a2P1&mobiles=${dem.phone}&message=We are thrilled that you were satisfied with our services. Your feedback is appreciated, and look forward to serve you again soon. -Zimson&sender=ZIMSON&route=4&country=91&DLT_TE_ID=1707165546866781996`
+            )
+            .then((res) => {
+              // console.log(res);
+            })
+            .catch((err) => {
+              console.error("err.message");
+            });
+        }
         setTimeout(() => {
           navigation.navigate("login");
           setShowModal(false);

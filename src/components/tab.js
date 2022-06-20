@@ -27,6 +27,7 @@ import Service from "./brand/service";
 import { useDispatch, useSelector } from "react-redux";
 import { dataProduct } from "../../redux/action/action";
 import authaxios from "../../interceptors/authaxios";
+import axios from "axios";
 
 const Tabs = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -94,8 +95,8 @@ const Tabs = ({ navigation }) => {
       about: dem.about,
       brand: dem.brandPur,
       star: dem.starPur,
-      reason: dem.reasonPur,
-      family: dem.familyPur,
+      reason: value,
+      family: value1,
       rate: dem.ratePur,
       family2: dem.family2Pur,
     };
@@ -104,6 +105,29 @@ const Tabs = ({ navigation }) => {
       .then((res) => {
         console.log(res.data);
         setShowModal(true);
+        if (Number(nums) <= 3) {
+          axios
+            .post(
+              `https://beyondmobile.org/api/sendhttp.php?authkey=377381AOgW9EHsVm1628b75a2P1&mobiles=${dem.phone}&message=We regret the inconveniences caused. We assure to work towards improving our services. Your review is important to us. - Zimson&sender=ZIMSON&route=4&country=91&DLT_TE_ID=1707165468053386658`
+            )
+            .then((res) => {
+              // console.log(res);
+            })
+            .catch((err) => {
+              console.error("err.message");
+            });
+        } else {
+          axios
+            .post(
+              `https://beyondmobile.org/api/sendhttp.php?authkey=377381AOgW9EHsVm1628b75a2P1&mobiles=${dem.phone}&message=We are thrilled that you were satisfied with our services. Your feedback is appreciated, and look forward to serve you again soon. -Zimson&sender=ZIMSON&route=4&country=91&DLT_TE_ID=1707165546866781996`
+            )
+            .then((res) => {
+              // console.log(res);
+            })
+            .catch((err) => {
+              console.error("err.message");
+            });
+        }
         setTimeout(() => {
           navigation.navigate("login");
           setShowModal(false);
@@ -434,27 +458,28 @@ const Tabs = ({ navigation }) => {
                     {value !== "" && value1 !== "" ? (
                       <TouchableOpacity
                         style={styles.button}
-                        onPress={() => {
-                          dispatch(
-                            dataProduct({
-                              type: "reasonPur",
-                              val: `${value}`,
-                            })
-                          );
-                          dispatch(
-                            dataProduct({
-                              type: "familyPur",
-                              val: Number(value1),
-                            })
-                          );
-                          setval(3);
-                        }}
+                        onPress={submits}
+                        // onPress={() => {
+                        //   dispatch(
+                        //     dataProduct({
+                        //       type: "reasonPur",
+                        //       val: `${value}`,
+                        //     })
+                        //   );
+                        //   dispatch(
+                        //     dataProduct({
+                        //       type: "familyPur",
+                        //       val: Number(value1),
+                        //     })
+                        //   );
+                        //   setval(3);
+                        // }}
                       >
-                        <Text style={styles.submit}>Next</Text>
+                        <Text style={styles.submit}>Submit</Text>
                       </TouchableOpacity>
                     ) : (
                       <TouchableOpacity style={styles.button2}>
-                        <Text style={styles.submit2}>Next</Text>
+                        <Text style={styles.submit2}>Submit</Text>
                       </TouchableOpacity>
                     )}
                   </View>
@@ -679,7 +704,7 @@ const styles = StyleSheet.create({
     fontSize: 23,
     color: "black",
     paddingBottom: 20,
-    textAlign: "center",
+    textAlign: "left",
   },
   exp1: {
     fontSize: 23,
